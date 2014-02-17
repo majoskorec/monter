@@ -1,0 +1,5 @@
+monter_art:
+    resource: "@MonterArtBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
