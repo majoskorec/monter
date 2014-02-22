@@ -1,0 +1,150 @@
+<?php
+
+namespace Monter\ArtBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+/**
+ * Page
+ *
+ * @ORM\Table(name="page")
+ * @ORM\Entity
+ * @UniqueEntity("urlKey")
+ */
+class Page
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url_key", type="string", length=50, nullable=false, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Regex(pattern = "/^[a-z0-9-_]+$/", message = "validation.url")
+     */
+    private $urlKey;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=50, nullable=false)
+     * @Assert\NotBlank()
+     */
+    private $title;
+
+    /**
+     * @var \Page
+     *
+     * @ORM\ManyToOne(targetEntity="Page", inversedBy="childPages")
+     * @ORM\JoinColumn(name="parent_page_id", referencedColumnName="id", nullable=true)
+     */
+    private $parentPage;
+
+    /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Page", mappedBy="parentPage", orphanRemoval=true)
+     */
+    private $childPages;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="row", type="integer", length=1, nullable=true)
+     * @Assert\NotBlank()
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 9,
+     *      minMessage = "validation.row",
+     *      maxMessage = "validation.row"
+     * )
+     */
+    private $row = 1;
+
+    /**
+     * @var Image
+     *
+     * @ORM\OneToOne(targetEntity="Image")
+     * @ORM\JoinColumn(name="title_img_id", referencedColumnName="id", nullable=true)
+     */
+    private $titleImg;
+
+    /**
+     * @var Image
+     *
+     * @ORM\OneToOne(targetEntity="Image")
+     * @ORM\JoinColumn(name="description_img_id", referencedColumnName="id", nullable=true)
+     */
+    private $descriptionImg;
+
+    /**
+     * @var Image
+     *
+     * @ORM\OneToOne(targetEntity="Image")
+     * @ORM\JoinColumn(name="button_img_id", referencedColumnName="id", nullable=true)
+     */
+    private $buttonImg;
+
+    /**
+     * @var Image
+     *
+     * @ORM\OneToOne(targetEntity="Image")
+     * @ORM\JoinColumn(name="button_hover_img_id", referencedColumnName="id", nullable=true)
+     */
+    private $buttonImgHover;
+
+    /**
+     * @var Image
+     *
+     * @ORM\OneToOne(targetEntity="Image")
+     * @ORM\JoinColumn(name="back_img_id", referencedColumnName="id", nullable=true)
+     */
+    private $backImg;
+
+    /**
+     * @var Image
+     *
+     * @ORM\OneToOne(targetEntity="Image")
+     * @ORM\JoinColumn(name="back_hover_img_id", referencedColumnName="id", nullable=true)
+     */
+    private $backImgHover;
+
+    /**
+     * @var Image
+     *
+     * @ORM\OneToOne(targetEntity="Image")
+     * @ORM\JoinColumn(name="content_img_id", referencedColumnName="id", nullable=true)
+     */
+    private $content;
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param int $row
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getChildPagesForRow($row)
+    {
+        return $this->getChildPages()->filter(function (Page $page) use ($row) {
+            return $page->getRow() == $row;
+        });
+    }
+
+// ---- auto-generated ---------------------------------------------------------
+
+}

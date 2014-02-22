@@ -1,0 +1,52 @@
+{% extends "MonterArtBundle:Default:layout.html.twig" %}
+
+{% block body %}
+<div class="container">
+    <div class="page-header">
+        <h1>Zoznam stránok</h1>
+    </div>
+
+    <div class="pull-right">
+        <a href="{{ path('logout') }}" class="btn btn-warning">
+            <span class="glyphicon glyphicon-log-out"></span> odhlásiť
+        </a>
+    </div>
+
+    <div>
+    {% set pages = entities %}
+    {% for page in pages %}
+        {% include 'MonterArtBundle:AdminPage:page.html.twig' with { 'page': page } %}
+    {% endfor %}
+    </div>
+
+{% endblock body %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function() {
+            $('.expand-content').hover(
+                function() {
+                    $(this).toggleClass('glyphicon-folder-close').toggleClass('glyphicon-folder-open');
+                },
+                function() {
+                    $(this).toggleClass('glyphicon-folder-close').toggleClass('glyphicon-folder-open');
+                }
+            );
+
+            $('.expand-content').click(function(){
+                var $url = $(this).attr('data-target');
+                if ( $(this).hasClass('expand') ) {
+                    $('#' + $url).html('');
+                } else {
+                    $.ajax({
+                        url: "{{ path('admin_get_page_content') }}/" + $url
+                    }).done(function(data) {
+                        $('#' + $url).html(data);
+                    });
+                }
+                $(this).toggleClass('glyphicon-folder-close').toggleClass('glyphicon-folder-open').toggleClass('expand');
+            });
+        });
+    </script>
+{% endblock javascripts %}

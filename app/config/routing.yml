@@ -1,5 +1,12 @@
+login:
+    path: /login
+    defaults: { _controller: MonterArtBundle:Admin:login }
+login_check:
+    path: /admin/login_check
+logout:
+    path: /admin/logout
+
 monter_art:
     resource: "@MonterArtBundle/Controller/"
     type:     annotation
     prefix:   /
-

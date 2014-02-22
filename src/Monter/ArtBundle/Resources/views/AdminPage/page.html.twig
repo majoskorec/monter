@@ -1,0 +1,32 @@
+<div class="admin-page clearfix">
+    {% if page.row is not empty %}
+    <span class="badge">
+        {{ page.row }}
+    </span>
+    {% endif %}
+    <span class="glyphicon glyphicon-folder-close hover expand-content" data-target="{{ page.urlKey }}"></span>
+    <span class="title">{{ page.title }}</span>
+    <span class="url">/{{ page.urlKey }}</span>
+    <div class="btn-group">
+        <a href="{{ path('admin_page_edit', { 'id': page.id }) }}" class="btn btn-success btn-xs">
+            <span class="glyphicon glyphicon-cog"></span> uprav
+        </a>
+        <a href="{{ path('admin_page_new', { 'parentPageId' : page.id }) }}" class="btn btn-primary btn-xs">
+            <span class="glyphicon glyphicon-file"></span> pridaj podstránku
+        </a>
+    </div>
+    <div class="admin-page-content" id="{{ page.urlKey }}">
+
+    </div>
+    <div class="admin-child-pages">
+    {% for i in range(1, 9) %}
+        {% if not page.childPagesForRow(i).isEmpty %}
+        <div class="admin-child-row">
+            {% for child in page.childPagesForRow(i) %}
+                {% include 'MonterArtBundle:AdminPage:page.html.twig' with { 'page': child } %}
+            {% endfor %}
+        </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+</div>

@@ -1,0 +1,165 @@
+body {
+    background-color: #3c746b;
+}
+
+.hover {
+    cursor: pointer;
+}
+
+.container {
+    position: relative;
+
+    .content {
+        margin-left: 300px;
+
+        .child-list {
+            padding-top: 50px;
+
+            .row {
+                height: 100px;
+                margin: 5px;
+                clear: both;
+            }
+
+            .child-page {
+                width: 150px;
+                height: 100px;
+                float: left;
+                margin: 5px;
+            }
+        }
+
+    }
+
+    .header {
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        color: white;
+
+        .folder {
+            position: absolute;
+            top: 10px;
+            left: 5px;
+            width: 36px;
+            height: 30px;
+            background-image: url('../images/folder.gif');
+        }
+
+        .hr {
+            position: absolute;
+            top: 80px;
+            left: 0px;
+            width: 100%;
+            height: 2px;
+            background-color: white;
+        }
+
+        .title {
+            position: absolute;
+            top: 50px;
+            left: 2px;
+            height: 20px;
+            width: 100px;
+        }
+
+        .link {
+            position: absolute;
+            top: 200px;
+            left: 0px;
+            width: 100%;
+            height: 50px;
+        }
+
+        .description {
+            position: absolute;
+            top: 100px;
+            left: 0px;
+            width: 100%;
+            height: 50px;
+        }
+    }
+
+    .back-button {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 51px;
+        height: 50px;
+        background-image: url('../images/icon_cancel.gif');
+
+        &:hover {
+            background-image: url('../images/icon_cancel_hover.gif');
+        }
+    }
+
+    .admin-page {
+        padding: 3px 0 3px 0;
+        
+        & > .title {
+            font-size: 120%;
+            font-weight: bold;
+            padding: 0 10px;
+        }
+        
+        .url {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 110%;
+            padding: 0 5px;
+        }
+
+        .admin-child-pages {
+            margin: 0 0 0 40px;
+
+            .admin-child-row {
+                padding-bottom: 10px;
+            }
+        }
+        .admin-page-content {
+            .title {
+                padding: 0 10px;
+                font-size: 110%;
+            }
+        }
+    }
+
+    .admin-image-preview {
+        text-align: center;
+
+        img {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px 5px 5px 5px;
+            -moz-border-radius: 5px 5px 5px 5px;
+            -webkit-border-radius: 5px 5px 5px 5px;
+        }
+    }
+
+    .admin-page-images {
+        padding: 5px 0;
+
+        img {
+            margin: 5px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px 5px 5px 5px;
+            -moz-border-radius: 5px 5px 5px 5px;
+            -webkit-border-radius: 5px 5px 5px 5px;
+        }
+    }
+
+    .has-error .help-block,
+    .has-error .control-label,
+    .has-error .radio,
+    .has-error .checkbox,
+    .has-error .radio-inline,
+    .has-error .checkbox-inline {
+        color: #ffffff;
+    }
+
+    .text-bold {
+        font-weight: bold;
+    }
+}
