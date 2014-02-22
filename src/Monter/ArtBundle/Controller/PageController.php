@@ -9,10 +9,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class PageController extends Controller
 {
     /**
+     * @Route("/", name="index")
+     */
+    public function indexAction()
+    {
+        return $this->redirect($this->generateUrl('page', array('page' => 'index')));
+    }
+
+    /**
      * @Route("/{page}", name="page")
      * @Template()
      */
-    public function indexAction($page)
+    public function pageAction($page)
     {
         /* @var $pageEntity \Monter\ArtBundle\Entity\Page */
         $pageEntity = $this->getDoctrine()->getRepository('MonterArtBundle:Page')->findOneBy(array('urlKey' => $page));

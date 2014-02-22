@@ -11,10 +11,11 @@
         {{ page.title }}
     {% endif %}
     </div>
-    <div class="hr"></div>
     <div class="description">
     {% if page.descriptionImg is not empty %}
         <img src="data:image/png;base64, {{ page.descriptionImg.image }}" alt="{{ page.descriptionImg.title }}" />
+    {% else %}
+        sem pojde popis
     {% endif %}
     </div>
     <div class="link">
@@ -64,6 +65,19 @@
 
         {% endfor %}
 
+        {% if page.backImg is not empty %}
+            <div class="back-img {% if page.backImgHover is not empty and page.parentPage is not empty %}is-link{% endif %}">
+                <img src="data:image/png;base64, {{ page.backImg.image }}" alt="{{ page.backImg.title }}" class="origin" />
+
+                {% if page.backImgHover is not empty and page.parentPage is not empty %}
+                <a href='{{ path('page', { 'page' : page.parentPage.urlkey }) }}'>
+                    <img src="data:image/png;base64, {{ page.backImgHover.image }}" alt="{{ page.parentPage.title }}" class="hover hide" />
+                </a>
+                {% endif %}
+
+            </div>
+        {% endif %}
+
         </div>
 
     {% else %}
@@ -87,7 +101,7 @@
     {{ parent() }}
     <script>
         $(function() {
-            $('.child-page').hover(
+            $('.child-page, .back-img.is-link').hover(
                 function() {
                     $(this).find('.origin').toggleClass('hide');
                     $(this).find('.hover').toggleClass('hide');
