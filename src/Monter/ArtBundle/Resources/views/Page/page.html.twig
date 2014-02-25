@@ -31,6 +31,22 @@
 
 {% block content %}
 
+{# ---- back button --------------------------------------------------------- #}
+    {% if page.backImg is not empty %}
+        <div class="back-img {% if page.backImgHover is not empty and page.parentPage is not empty %}is-link{% endif %}">
+            <img src="data:image/png;base64, {{ page.backImg.image }}" alt="{{ page.backImg.title }}" class="origin" />
+
+            {% if page.backImgHover is not empty and page.parentPage is not empty %}
+            <a href='{{ path('page', { 'page' : page.parentPage.urlkey }) }}'>
+                <img src="data:image/png;base64, {{ page.backImgHover.image }}" alt="{{ page.parentPage.title }}" class="hover hide" />
+            </a>
+            {% endif %}
+
+        </div>
+    {% endif %}
+{# ---- end back button ----------------------------------------------------- #}
+
+{# ---- content child pages ------------------------------------------------- #}
     {% if page.content is empty %}
 
         <div class="child-list">
@@ -65,26 +81,15 @@
 
         {% endfor %}
 
-        {% if page.backImg is not empty %}
-            <div class="back-img {% if page.backImgHover is not empty and page.parentPage is not empty %}is-link{% endif %}">
-                <img src="data:image/png;base64, {{ page.backImg.image }}" alt="{{ page.backImg.title }}" class="origin" />
-
-                {% if page.backImgHover is not empty and page.parentPage is not empty %}
-                <a href='{{ path('page', { 'page' : page.parentPage.urlkey }) }}'>
-                    <img src="data:image/png;base64, {{ page.backImgHover.image }}" alt="{{ page.parentPage.title }}" class="hover hide" />
-                </a>
-                {% endif %}
-
-            </div>
-        {% endif %}
-
         </div>
 
     {% else %}
+{# ---- content image ------------------------------------------------------- #}
 
     <img src="data:image/png;base64, {{ page.content.image }}" alt="{{ page.title }}" class="origin" />
 
     {% endif %}
+{# ---- end content --------------------------------------------------------- #}
 
 {% endblock content %}
 
