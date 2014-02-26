@@ -20,10 +20,9 @@ body {
   clear: both;
 }
 .container .content .child-list .child-page {
-  width: 150px;
   height: 100px;
   float: left;
-  margin: 5px;
+  margin: 5px 10px;
 }
 .container .content .back-img {
   position: absolute;
