@@ -23,6 +23,8 @@ class Page
     const IMG_DESCRIPTION = 'description';
     const IMG_CONTENT = 'content';
 
+    const HOME_URL_KEY = 'home';
+
     /**
      * @var integer
      *

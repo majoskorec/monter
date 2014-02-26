@@ -2,7 +2,9 @@
 
 {% block title %}{{ page.title }}{% endblock title %}
 
+{# ---- header -------------------------------------------------------------- #}
 {% block pageHeader %}
+
     <div class="folder"></div>
     <div class="title">
     {% if page.titleImg is not empty %}
@@ -11,12 +13,14 @@
         {{ page.title }}
     {% endif %}
     </div>
+
+    {% if page.content is empty %}
     <div class="description">
-    {% if page.descriptionImg is not empty %}
+        {% if page.descriptionImg is not empty %}
         <img src="data:image/png;base64, {{ page.descriptionImg.image }}" alt="{{ page.descriptionImg.title }}" />
-    {% else %}
+        {% else %}
         sem pojde popis
-    {% endif %}
+        {% endif %}
     </div>
     <div class="link">
         {% if page.parentPage is empty %}
@@ -27,8 +31,12 @@
         <img src="{{ asset('bundles/monterart/images/text_home_02.gif') }}" alt="">
         {% endif %}
     </div>
-{% endblock pageHeader %}
+    {% endif %}
 
+{% endblock pageHeader %}
+{# ---- end header ---------------------------------------------------------- #}
+
+{# ---- content ------------------------------------------------------------- #}
 {% block content %}
 
 {# ---- back button --------------------------------------------------------- #}
@@ -51,7 +59,7 @@
 
         <div class="child-list">
 
-        {% for i in range(1, 9) %}
+        {% for i in range(1, 5) %}
 
             {% if not page.childPagesForRow(i).isEmpty %}
 
@@ -92,11 +100,16 @@
 {# ---- end content --------------------------------------------------------- #}
 
 {% endblock content %}
+{# ---- end content --------------------------------------------------------- #}
 
 {% block backButton %}
 
     {% if page.parentPage is not empty %}
-    <a href="{{ path('page', { 'page' : page.parentPage.urlKey } ) }}" class="back-button"></a>
+        {% if page.parentPage.parentPage is empty %}
+        <a href="{{ path('page', { 'page' : page.parentPage.urlKey } ) }}" class="back-button"></a>
+        {% else %}
+        <a href="{{ path('page', { 'page' : constant('\\Monter\\ArtBundle\\Entity\\Page::HOME_URL_KEY') } ) }}" class="back-button"></a>
+        {% endif %}
     {% endif %}
 
 {% endblock backButton %}
