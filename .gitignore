@@ -9,3 +9,4 @@
 /vendor/
 /bin/
 /composer.phar
+/src/Monter/ArtBundle/Entity/*.php~

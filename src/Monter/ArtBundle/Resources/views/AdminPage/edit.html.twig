@@ -8,10 +8,12 @@
 
     <div class="pull-right">
         <div class="btn-group">
-            <a href="{{ path('admin_page') }}" class="btn btn-success">
+            <a href="{{ path('admin_page') }}" class="btn btn-primary">
                 <span class="glyphicon glyphicon-th-list"></span> zoznam
             </a>
-            <!-- Button trigger modal -->
+            <a href="{{ path('admin_gallery_list', { 'pageId' : entity.id }) }}" class="btn btn-primary">
+                <span class="glyphicon glyphicon-picture"></span> galéria
+            </a>
             <button class="btn btn-danger" data-toggle="modal" data-target="#myModal">
                 <span class="glyphicon glyphicon-trash"></span> zmaž
             </button>

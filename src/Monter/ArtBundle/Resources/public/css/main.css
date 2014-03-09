@@ -29,6 +29,48 @@ body {
   bottom: 0px;
   right: 0px;
 }
+.container .content .gallery {
+  width: 77px;
+  height: 71px;
+  background-image: url('../images/fotacik.png');
+  position: absolute;
+  top: 80px;
+  left: 235px;
+}
+.container .content .gallery:hover {
+  background-image: url('../images/fotacik_zvyrazneny.png');
+}
+.container .content .gallery-back {
+  width: 48px;
+  height: 47px;
+  background-image: url('../images/minus.png');
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+.container .content .gallery-back:hover {
+  background-image: url('../images/minus_zvyrazneny.png');
+}
+.container .content .navigation {
+  width: 28px;
+  height: 35px;
+  position: absolute;
+  top: 300px;
+}
+.container .content .navigation.next {
+  left: 1125px;
+  background-image: url('../images/sipka_prava.png');
+}
+.container .content .navigation.next:hover {
+  background-image: url('../images/sipka_prava_zvyraznena.png');
+}
+.container .content .navigation.prev {
+  left: 217px;
+  background-image: url('../images/sipka_lava.png');
+}
+.container .content .navigation.prev:hover {
+  background-image: url('../images/sipka_lava_zvyraznena.png');
+}
 .container .header {
   width: 200px;
   height: 200px;

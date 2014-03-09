@@ -22,7 +22,6 @@ class ImageType extends \Monter\ArtBundle\Form\AbstractType
     {
         $builder
             ->add('title', null, $this->getAttr('Názov'))
-//            ->add('image', 'file', $this->getAttr('Obrázok'))
             ->add('file', 'file', $this->getAttr('Obrázok', array('required' => true)))
         ;
     }

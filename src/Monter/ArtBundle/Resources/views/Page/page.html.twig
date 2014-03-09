@@ -94,6 +94,9 @@
     {% else %}
 {# ---- content image ------------------------------------------------------- #}
 
+        {% if page.gallery is not empty %}
+            <a href="{{ path('page-gallery', { 'page' : page.urlKey } )}}" class="gallery"></a>
+        {% endif %}
     <img src="data:image/png;base64, {{ page.content.image }}" alt="{{ page.title }}" class="origin" />
 
     {% endif %}
@@ -121,12 +124,12 @@
         $(function() {
             $('.child-page, .back-img.is-link').hover(
                 function() {
-                    $(this).find('.origin').toggleClass('hide');
-                    $(this).find('.hover').toggleClass('hide');
+                    $(this).find('.origin').addClass('hide');
+                    $(this).find('.hover').removeClass('hide');
                 },
                 function() {
-                    $(this).find('.origin').toggleClass('hide');
-                    $(this).find('.hover').toggleClass('hide');
+                    $(this).find('.origin').removeClass('hide');
+                    $(this).find('.hover').addClass('hide');
                 }
             );
         });

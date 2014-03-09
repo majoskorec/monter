@@ -34,6 +34,54 @@ body {
             bottom: 0px;
             right: 0px;
         }
+
+        .gallery {
+            width: 77px;
+            height: 71px;
+            background-image: url('../images/fotacik.png');
+            position: absolute;
+            top: 80px;
+            left: 235px;
+
+            &:hover {
+                background-image: url('../images/fotacik_zvyrazneny.png');
+            }
+        }
+
+        .gallery-back {
+            width: 48px;
+            height: 47px;
+            background-image: url('../images/minus.png');
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            &:hover {
+                background-image: url('../images/minus_zvyrazneny.png');
+            }
+        }
+
+        .navigation {
+            width: 28px;
+            height: 35px;
+            position: absolute;
+            top: 300px;
+
+            &.next {
+                left: 1125px;
+                background-image: url('../images/sipka_prava.png');
+                &:hover {
+                    background-image: url('../images/sipka_prava_zvyraznena.png');
+                }
+            }
+
+            &.prev {
+                left: 217px;
+                background-image: url('../images/sipka_lava.png');
+                &:hover {
+                    background-image: url('../images/sipka_lava_zvyraznena.png');
+                }
+            }
+        }
     }
 
     .header {

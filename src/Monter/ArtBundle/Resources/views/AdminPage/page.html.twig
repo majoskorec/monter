@@ -8,11 +8,14 @@
     <span class="title">{{ page.title }}</span>
     <span class="url">/{{ page.urlKey }}</span>
     <div class="btn-group">
-        <a href="{{ path('admin_page_edit', { 'id': page.id }) }}" class="btn btn-success btn-xs">
+        <a href="{{ path('admin_page_edit', { 'id': page.id }) }}" class="btn btn-primary btn-xs">
             <span class="glyphicon glyphicon-cog"></span> uprav
         </a>
         <a href="{{ path('admin_page_new', { 'parentPageId' : page.id }) }}" class="btn btn-primary btn-xs">
             <span class="glyphicon glyphicon-file"></span> pridaj podstránku
+        </a>
+        <a href="{{ path('admin_gallery_list', { 'pageId' : page.id }) }}" class="btn btn-primary btn-xs">
+            <span class="glyphicon glyphicon-picture"></span> galéria <span class="badge">{{ page.gallery|length }}</span>
         </a>
     </div>
     <div class="admin-page-content" id="{{ page.urlKey }}">

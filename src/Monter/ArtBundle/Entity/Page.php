@@ -137,6 +137,13 @@ class Page
     private $content;
 
     /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Gallery", mappedBy="page", orphanRemoval=true)
+     */
+    private $gallery;
+
+    /**
      * @return string
      */
     public function __toString()
@@ -214,6 +221,7 @@ class Page
     public function __construct()
     {
         $this->childPages = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->gallery = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -510,5 +518,38 @@ class Page
     public function getContent()
     {
         return $this->content;
+    }
+
+    /**
+     * Add gallery
+     *
+     * @param \Monter\ArtBundle\Entity\Gallery $gallery
+     * @return Page
+     */
+    public function addGallery(\Monter\ArtBundle\Entity\Gallery $gallery)
+    {
+        $this->gallery[] = $gallery;
+
+        return $this;
+    }
+
+    /**
+     * Remove gallery
+     *
+     * @param \Monter\ArtBundle\Entity\Gallery $gallery
+     */
+    public function removeGallery(\Monter\ArtBundle\Entity\Gallery $gallery)
+    {
+        $this->gallery->removeElement($gallery);
+    }
+
+    /**
+     * Get gallery
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGallery()
+    {
+        return $this->gallery;
     }
 }
