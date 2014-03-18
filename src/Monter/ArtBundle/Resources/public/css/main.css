@@ -12,17 +12,44 @@ body {
   height: 768px;
 }
 .container .content .child-list {
-  padding-top: 50px;
+  padding-top: 55px;
 }
 .container .content .child-list .row {
-  height: 100px;
-  margin: 5px;
-  clear: both;
+  height: 110px;
+  margin: 0 10px;
+  padding: 0 30px;
+  overflow: hidden;
+  position: relative;
 }
-.container .content .child-list .child-page {
+.container .content .child-list .row .row-scroller {
+  margin-left: 0px;
+}
+.container .content .child-list .row a.left-scroll {
+  position: absolute;
+  top: 37px;
+  left: 0px;
+  width: 28px;
+  height: 35px;
+  background-image: url('../images/sipka_lava.png');
+}
+.container .content .child-list .row a.left-scroll:hover {
+  background-image: url('../images/sipka_lava_zvyraznena.png');
+}
+.container .content .child-list .row a.right-scroll {
+  position: absolute;
+  top: 37px;
+  right: 0px;
+  width: 28px;
+  height: 35px;
+  background-image: url('../images/sipka_prava.png');
+}
+.container .content .child-list .row a.right-scroll:hover {
+  background-image: url('../images/sipka_prava_zvyraznena.png');
+}
+.container .content .child-list .row .child-page {
   height: 100px;
-  float: left;
   margin: 5px 10px;
+  display: inline-block;
 }
 .container .content .back-img {
   position: absolute;

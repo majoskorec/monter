@@ -14,18 +14,48 @@ body {
         height: 768px;
 
         .child-list {
-            padding-top: 50px;
+            padding-top: 55px;
 
             .row {
-                height: 100px;
-                margin: 5px;
-                clear: both;
-            }
+                height: 110px;
+                margin: 0 10px;
+                padding: 0 30px;
+                overflow: hidden;
+                position: relative;
 
-            .child-page {
-                height: 100px;
-                float: left;
-                margin: 5px 10px;
+                .row-scroller {
+                    margin-left: 0px;
+                }
+
+                a.left-scroll {
+                    position: absolute;
+                    top: 37px;
+                    left: 0px;
+                    width: 28px;
+                    height: 35px;
+                    background-image: url('../images/sipka_lava.png');
+                    &:hover {
+                        background-image: url('../images/sipka_lava_zvyraznena.png');
+                    }
+                }
+
+                a.right-scroll {
+                    position: absolute;
+                    top: 37px;
+                    right: 0px;
+                    width: 28px;
+                    height: 35px;
+                    background-image: url('../images/sipka_prava.png');
+                    &:hover {
+                        background-image: url('../images/sipka_prava_zvyraznena.png');
+                    }
+                }
+
+                .child-page {
+                    height: 100px;
+                    margin: 5px 10px;
+                    display: inline-block;
+                }
             }
         }
 
