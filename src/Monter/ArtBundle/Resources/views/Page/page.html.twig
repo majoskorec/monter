@@ -90,6 +90,8 @@
     {{ parent() }}
     <script>
         $(function() {
+            var scrollingAnimation = false;
+
             $('.child-page, .back-img.is-link').hover(
                 function() {
                     $(this).find('.origin').addClass('hide');
@@ -103,33 +105,54 @@
 
             $('.row').each(function(){
                 var last = $( this ).find('.child-page').last().position().top;
-                console.log(last);
                 if (2 < last) {
                     $( this ).append('<a href="javascript:void(0)" class="left-scroll"></a>');
                     $( this ).append('<a href="javascript:void(0)" class="right-scroll"></a>');
                 }
-
+                arrowVisibility( $( this ) );
             });
             
             $('.left-scroll').on('click', function(){
-                leftScrolling( $( this ).parent().find('.row-scroller') );
+                leftScrolling( $( this ).parent() );
             });
 
             $('.right-scroll').on('click', function(){
-                rightScrolling( $( this ).parent().find('.row-scroller') );
+                rightScrolling( $( this ).parent() );
             });
 
             function leftScrolling( object )
             {
-                if ( object.find('.child-page').last().position().top > 0 ) {
-                    object.animate({"margin-left": "-=100px"}, 200, "linear", function () {});
+                if ( object.find('.child-page').last().position().top > 0 && !scrollingAnimation ) {
+                    scrollingAnimation = true;
+                    object.find('.row-scroller').animate({"margin-left": "-=200px"}, 200, "linear", function () {
+                        arrowVisibility( object );
+                        scrollingAnimation = false;
+                    });
                 }
             }
 
             function rightScrolling( object )
             {
+                if ( object.find('.child-page').first().position().left < 0 && !scrollingAnimation ) {
+                    scrollingAnimation = true;
+                    object.find('.row-scroller').animate({"margin-left": "+=200px"}, 200, "linear", function () {
+                        arrowVisibility( object );
+                        scrollingAnimation = false;
+                    });
+                }
+            }
+
+            function arrowVisibility( object )
+            {
                 if ( object.find('.child-page').first().position().left < 0 ) {
-                    object.animate({"margin-left": "+=100px"}, 200, "linear", function () {});
+                    object.find('.right-scroll').fadeIn(50);
+                } else {
+                    object.find('.right-scroll').fadeOut(50);
+                }
+                if ( object.find('.child-page').last().position().top > 0 ) {
+                    object.find('.left-scroll').fadeIn(50);
+                } else {
+                    object.find('.left-scroll').fadeOut(50);
                 }
             }
         });
