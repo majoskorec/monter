@@ -111,37 +111,25 @@
 
             });
             
-            var mouseDown = false;
-
-            $('.left-scroll').on('mousedown', function(){
-                mouseDown = true;
+            $('.left-scroll').on('click', function(){
                 leftScrolling( $( this ).parent().find('.row-scroller') );
             });
 
-            $(document).on('mouseup', function(){
-                mouseDown = false;
-            });
-
-            $('.right-scroll').on('mousedown', function(){
-                mouseDown = true;
+            $('.right-scroll').on('click', function(){
                 rightScrolling( $( this ).parent().find('.row-scroller') );
             });
 
             function leftScrolling( object )
             {
-                if ( object.find('.child-page').last().position().top > 0 && mouseDown ) {
-                    object.animate({"margin-left": "-=10px"}, 20, "linear", function () {
-                        leftScrolling( object );
-                    });
+                if ( object.find('.child-page').last().position().top > 0 ) {
+                    object.animate({"margin-left": "-=100px"}, 200, "linear", function () {});
                 }
             }
 
             function rightScrolling( object )
             {
-                if ( object.find('.child-page').first().position().left < 0 && mouseDown ) {
-                    object.animate({"margin-left": "+=10px"}, 20, "linear", function () {
-                        rightScrolling( object );
-                    });
+                if ( object.find('.child-page').first().position().left < 0 ) {
+                    object.animate({"margin-left": "+=100px"}, 200, "linear", function () {});
                 }
             }
         });
