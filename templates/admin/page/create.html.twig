@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<div class="container">
+		<div class="page-header">
+			<h1>Nová stránka</h1>
+		</div>
+
+		<div class="pull-right">
+			<div class="btn-group">
+				<a href="{{ path('admin_page_index') }}" class="btn btn-success">
+					<span class="glyphicon glyphicon-th-list"></span> zoznam
+				</a>
+				<a href="{{ path('logout') }}" class="btn btn-warning">
+					<span class="glyphicon glyphicon-log-out"></span> odhlásiť
+				</a>
+			</div>
+		</div>
+
+		{{ form(form, { 'attr' : {'role' : 'form', 'class' : 'form-horizontal' } } ) }}
+
+	</div>
+{% endblock %}

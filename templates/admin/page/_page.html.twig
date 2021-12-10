@@ -1,0 +1,38 @@
+<div class="admin-page clearfix">
+	{% if page.row is not empty %}
+		<span class="badge">
+        {{ page.row }}
+    </span>
+	{% endif %}
+	<span class="glyphicon glyphicon-folder-close hover expand-content"
+		  data-target="{{ page.id }}"
+		  data-content-url="{{ url('admin_get_page_content', {'id' : page.id}) }}">
+	</span>
+	<span class="title">{{ page.title }}</span>
+	<span class="url">/{{ page.urlKey }}</span>
+	<div class="btn-group">
+		<a href="{{ path('admin_page_edit', { 'id': page.id }) }}" class="btn btn-primary btn-xs">
+			<span class="glyphicon glyphicon-cog"></span> uprav
+		</a>
+		<a href="{{ path('admin_page_create', { 'parentId' : page.id }) }}" class="btn btn-primary btn-xs">
+			<span class="glyphicon glyphicon-file"></span> pridaj podstránku
+		</a>
+		<a href="{{ path('admin_gallery_index', { 'pageId' : page.id }) }}" class="btn btn-primary btn-xs">
+			<span class="glyphicon glyphicon-picture"></span> galéria <span class="badge">{{ page.gallery|length }}</span>
+		</a>
+	</div>
+	<div class="admin-page-content" id="{{ page.id }}">
+
+	</div>
+	<div class="admin-child-pages">
+		{% for i in range(1, 9) %}
+			{% if not page.childPagesForRow(i).isEmpty %}
+				<div class="admin-child-row">
+					{% for child in page.childPagesForRow(i) %}
+						{% include 'admin/page/_page.html.twig' with { 'page': child } %}
+					{% endfor %}
+				</div>
+			{% endif %}
+		{% endfor %}
+	</div>
+</div>

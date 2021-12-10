@@ -1,0 +1,231 @@
+body {
+    background-color: #3c746b;
+}
+
+.hover {
+    cursor: pointer;
+}
+
+.container {
+    position: relative;
+    width: 1170px !important;
+
+    .content {
+        margin-left: 220px;
+        height: 768px;
+
+        .child-list {
+            padding-top: 55px;
+
+            .row {
+                height: 110px;
+                margin: 0 10px;
+                padding: 0 30px;
+                overflow: hidden;
+                position: relative;
+
+                .row-scroller {
+                    margin-left: 0px;
+                }
+
+                a.left-scroll {
+                    position: absolute;
+                    top: 37px;
+                    left: 0px;
+                    width: 28px;
+                    height: 35px;
+                    background-image: url('../images/sipka_lava.png');
+                    &:hover {
+                        background-image: url('../images/sipka_lava_zvyraznena.png');
+                    }
+                }
+
+                a.right-scroll {
+                    position: absolute;
+                    top: 37px;
+                    right: 0px;
+                    width: 28px;
+                    height: 35px;
+                    background-image: url('../images/sipka_prava.png');
+                    &:hover {
+                        background-image: url('../images/sipka_prava_zvyraznena.png');
+                    }
+                }
+
+                .child-page {
+                    height: 100px;
+                    margin: 5px 10px;
+                    display: inline-block;
+                }
+            }
+        }
+
+        .back-img {
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+        }
+
+        .gallery {
+            width: 77px;
+            height: 71px;
+            background-image: url('../images/fotacik.png');
+            position: absolute;
+            top: 80px;
+            left: 235px;
+
+            &:hover {
+                background-image: url('../images/fotacik_zvyrazneny.png');
+            }
+        }
+
+        .gallery-back {
+            width: 48px;
+            height: 47px;
+            background-image: url('../images/minus.png');
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            &:hover {
+                background-image: url('../images/minus_zvyrazneny.png');
+            }
+        }
+
+        .navigation {
+            width: 28px;
+            height: 35px;
+            position: absolute;
+            top: 300px;
+
+            &.next {
+                left: 1125px;
+                background-image: url('../images/sipka_prava.png');
+                &:hover {
+                    background-image: url('../images/sipka_prava_zvyraznena.png');
+                }
+            }
+
+            &.prev {
+                left: 217px;
+                background-image: url('../images/sipka_lava.png');
+                &:hover {
+                    background-image: url('../images/sipka_lava_zvyraznena.png');
+                }
+            }
+        }
+    }
+
+    .header {
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        color: white;
+
+        .folder {
+            margin: 10px;
+            width: 36px;
+            height: 30px;
+            background-image: url('../images/folder.gif');
+        }
+
+        .title {
+            height: 27px;
+            width: 100%;
+            padding: 0 0 5px 0;
+            border-bottom: 2px solid white;
+        }
+
+        .description {
+            width: 100%;
+            padding: 5px 0;
+        }
+
+        .link {
+            width: 100%;
+        }
+    }
+
+    .back-button {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        width: 51px;
+        height: 50px;
+        background-image: url('../images/icon_cancel.gif');
+
+        &:hover {
+            background-image: url('../images/icon_cancel_hover.gif');
+        }
+    }
+
+
+    .admin-page {
+        padding: 3px 0 3px 0;
+
+        & > .title {
+            font-size: 120%;
+            font-weight: bold;
+            padding: 0 10px;
+        }
+
+        .url {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 110%;
+            padding: 0 5px;
+        }
+
+        .admin-child-pages {
+            margin: 0 0 0 40px;
+
+            .admin-child-row {
+                padding-bottom: 10px;
+            }
+        }
+        .admin-page-content {
+            .title {
+                padding: 0 10px;
+                font-size: 110%;
+            }
+        }
+    }
+
+    .admin-image-preview {
+        text-align: center;
+
+        img {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px 5px 5px 5px;
+            -moz-border-radius: 5px 5px 5px 5px;
+            -webkit-border-radius: 5px 5px 5px 5px;
+        }
+    }
+
+    .admin-page-images {
+        padding: 5px 0;
+
+        img {
+            margin: 5px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px 5px 5px 5px;
+            -moz-border-radius: 5px 5px 5px 5px;
+            -webkit-border-radius: 5px 5px 5px 5px;
+        }
+    }
+
+    .has-error .help-block,
+    .has-error .control-label,
+    .has-error .radio,
+    .has-error .checkbox,
+    .has-error .radio-inline,
+    .has-error .checkbox-inline {
+        color: #ffffff;
+    }
+
+    .text-bold {
+        font-weight: bold;
+    }
+}

@@ -1,0 +1,13 @@
+{% for pageImage in page.pageImages %}
+	<div class="">
+		<div class="text-bold">
+			{% set name = 'image.type.' ~ pageImage.typ %}
+			{{ name|trans }}
+		</div>
+		{% if pageImage.isSet %}
+			<div class="">
+				<img src="data:image/png;base64, {{ pageImage.data }}" alt="{{ pageImage.title }}" />
+			</div>
+		{% endif %}
+	</div>
+{% endfor %}

@@ -1,0 +1,7 @@
+parameters:
+    level: max
+    checkMissingIterableValueType: false
+    paths:
+        - src
+    ignoreErrors:
+        - '#.::\$id is never written, only read.#'
