@@ -1,0 +1,55 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div class="container">
+    <div class="page-header">
+        <h1>Zoznam stránok</h1>
+    </div>
+
+    <div class="pull-right">
+        <a href="{{ path('logout') }}" class="btn btn-warning">
+            <span class="glyphicon glyphicon-log-out"></span> odhlásiť
+        </a>
+    </div>
+
+    <div>
+    {% set pages = entities %}
+    {% for page in pages %}
+        {% include 'admin/page/_page.html.twig' with { 'page': page } %}
+    {% endfor %}
+    </div>
+
+{% endblock body %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function() {
+            $('.expand-content').hover(
+                function() {
+                    $(this).toggleClass('glyphicon-folder-close').toggleClass('glyphicon-folder-open');
+                },
+                function() {
+                    $(this).toggleClass('glyphicon-folder-close').toggleClass('glyphicon-folder-open');
+                }
+            );
+
+            $('.expand-content').click(function(){
+                let id = $(this).attr('data-target');
+                let contentUrl = $(this).attr('data-content-url');
+                let target = $('#' + id);
+
+                if ( $(this).hasClass('expand') ) {
+                    target.html('');
+                } else {
+                    $.ajax({
+                        url: contentUrl
+                    }).done(function(data) {
+                        target.html(data);
+                    });
+                }
+                $(this).toggleClass('glyphicon-folder-close').toggleClass('glyphicon-folder-open').toggleClass('expand');
+            });
+        });
+    </script>
+{% endblock javascripts %}

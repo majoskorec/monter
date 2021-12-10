@@ -1,0 +1,57 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	<div class="container">
+	<div class="page-header">
+		<h1>Galéria <small>{{ page.title }}</small></h1>
+	</div>
+
+	<div style="height: 40px;">
+
+		<div class="btn-group pull-right">
+			<a href="{{ path('admin_page_edit', { 'id' : page.id }) }}" class="btn btn-primary">
+				<span class="glyphicon glyphicon-chevron-left"></span> stránka
+			</a>
+			<a href="{{ path('admin_page_index') }}" class="btn btn-primary">
+				<span class="glyphicon glyphicon-th-list"></span> zoznam
+			</a>
+			<a href="{{ path('admin_gallery_create', { 'pageId' : page.id }) }}" class="btn btn-primary">
+				<span class="glyphicon glyphicon-picture"></span> pridaj obrázok
+			</a>
+			<a href="{{ path('logout') }}" class="btn btn-warning">
+				<span class="glyphicon glyphicon-log-out"></span> odhlásiť
+			</a>
+		</div>
+
+	</div>
+
+
+	{% for gallery in page.gallery %}
+		<div style="font-size: 1.2em;" class="well well-sm">
+
+			<div class="btn-group pull-right">
+				<a href="{{ path('admin_gallery_edit', { 'id' : gallery.id }) }}" class="btn btn-primary btn-xs">
+					<span class="glyphicon glyphicon-pencil"></span> uprav
+				</a>
+				<a href="{{ path('admin_gallery_delete', { 'id' : gallery.id }) }}" class="btn btn-danger btn-xs">
+					<span class="glyphicon glyphicon-trash"></span> zmaž
+				</a>
+			</div>
+
+			<div>
+				<span style="">Titulka:</span>
+				<span style="font-weight: bold;">{{ gallery.title }}</span>
+			</div>
+			<div>
+				<span style="">Url klúč:</span>
+				<span style="font-weight: bold;">{{ gallery.urlKey }}</span>
+			</div>
+			<div class="text-center">
+				{% if gallery.image is not empty %}
+					<img src="data:image/png;base64, {{ gallery.image.image }}" alt="{{ gallery.title }}" class="" />
+				{% endif %}
+			</div>
+		</div>
+	{% endfor %}
+
+{% endblock body %}
