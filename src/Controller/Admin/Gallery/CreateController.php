@@ -44,7 +44,7 @@ final class CreateController extends AbstractController
 
         return $this->render('admin/gallery/create.html.twig', [
             'entity' => $entity,
-            'form' => $form->createView(),
+            'form' => $form,
             'pageId' => $page->getId(),
         ]);
     }

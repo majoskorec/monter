@@ -46,7 +46,7 @@ final class EditController extends AbstractController
 
         return $this->render('admin/image/edit.html.twig', [
             'entity' => $image,
-            'form' => $form->createView(),
+            'form' => $form,
             'pageId' => $page->getId(),
         ]);
     }

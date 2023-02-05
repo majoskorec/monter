@@ -39,7 +39,7 @@ final class CreateController extends AbstractController
 
         return $this->render('admin/page/create.html.twig', [
             'entity' => $entity,
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 }

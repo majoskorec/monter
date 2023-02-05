@@ -20,4 +20,6 @@ yarn-error.log
 /.phpcs-cache
 ###< squizlabs/php_codesniffer ###
 
+###> friendsofphp/php-cs-fixer ###
 /.php-cs-fixer.cache
+###< friendsofphp/php-cs-fixer ###
