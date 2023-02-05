@@ -6,19 +6,20 @@ namespace App\Controller;
 
 use App\Entity\Gallery;
 use App\Entity\Page;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/{page}/gallery', name: 'page-gallery')]
+#[Route('/{page}/gallery/{gallery}', name: 'gallery')]
 final class GalleryController extends AbstractController
 {
-    #[Route('/{page}/gallery', name: 'page-gallery')]
-    #[Route('/{page}/gallery/{gallery}', name: 'gallery')]
-    #[ParamConverter('pageEntity', class: Page::class, options: ['mapping' => ['page' => 'urlKey']])]
-    public function __invoke(Page $pageEntity, ?string $gallery = null): Response
-    {
+    public function __invoke(
+        #[MapEntity(mapping: ['page' => 'urlKey'])]
+        Page $pageEntity,
+        ?string $gallery = null,
+    ): Response {
         $galleryEntity = $this->getGalleryEntity($pageEntity, $gallery);
         /** @var string|null $nextGallery */
         $nextGallery = null;
@@ -54,7 +55,7 @@ final class GalleryController extends AbstractController
 
         $entity = $collection->first();
         if ($entity === false) {
-            throw new NotFoundHttpException('');
+            throw $this->createNotFoundException('missing gallery' . ($gallery ?? 'n/a'));
         }
 
         return $entity;

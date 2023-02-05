@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\GalleryRepository;
@@ -8,9 +10,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-/**
- * @psalm-suppress MissingConstructor
- */
 #[ORM\Entity(repositoryClass: GalleryRepository::class)]
 #[ORM\Table(name: "gallery")]
 #[UniqueEntity(fields: ["urlKey", "page"])]
@@ -19,7 +18,7 @@ class Gallery
     #[ORM\Id]
     #[ORM\Column(name: "id", type: "integer")]
     #[ORM\GeneratedValue(strategy: "AUTO")]
-    private int $id;
+    private ?int $id = null;
 
     #[ORM\Column(name: "url_key", type: "string", length: 50, nullable: false)]
     #[Assert\NotBlank]
@@ -46,7 +45,7 @@ class Gallery
         return $this->title;
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

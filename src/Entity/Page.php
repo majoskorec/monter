@@ -1,19 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Model\PageImage;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use JetBrains\PhpStorm\Pure;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @psalm-suppress MissingConstructor
- * @psalm-suppress PropertyNotSetInConstructor
- */
 #[ORM\Entity]
 #[ORM\Table(name: "page")]
 #[UniqueEntity('urlKey')]
@@ -92,7 +89,6 @@ class Page
     #[ORM\OneToMany(mappedBy: "page", targetEntity: Gallery::class, orphanRemoval: true)]
     private Collection $gallery;
 
-    #[Pure]
     public function __construct()
     {
         $this->childPages = new ArrayCollection();
@@ -117,15 +113,17 @@ class Page
      */
     public function getChildPagesForRow(int $row): Collection
     {
-        return $this->childPages->filter(function (Page $page) use ($row) {
+        /** @var Collection<array-key, Page> $result */
+        $result = $this->childPages->filter(function (Page $page) use ($row) {
             return $page->getRow() === $row;
         });
+
+        return $result;
     }
 
     /**
      * @return array<PageImage>
      */
-    #[Pure]
     public function getPageImages(): array
     {
         $result = [];

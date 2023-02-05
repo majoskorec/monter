@@ -1,80 +1,66 @@
-{% extends "base.html.twig" %}
+{% extends "admin/admin.html.twig" %}
 
-{% block body -%}
-	<div class="container">
-		<div class="page-header">
-			<h1>Úprava stránky <small>{{ entity.title }}</small></h1>
-		</div>
+{% block adminTitle %}Úprava stránky <small>{{ entity.title }}</small>{% endblock adminTitle %}
+{% block adminActionAttrs %}{{ stimulus_controller('modal') }}{% endblock %}
 
-		<div class="pull-right">
-			<div class="btn-group">
-				<a href="{{ path('admin_page_index') }}" class="btn btn-primary">
-					<span class="glyphicon glyphicon-th-list"></span> zoznam
-				</a>
-				<a href="{{ path('admin_gallery_index', { 'pageId' : entity.id }) }}" class="btn btn-primary">
-					<span class="glyphicon glyphicon-picture"></span> galéria
-				</a>
-				<button class="btn btn-danger" data-toggle="modal" data-target="#myModal">
-					<span class="glyphicon glyphicon-trash"></span> zmaž
-				</button>
-				<a href="{{ path('logout') }}" class="btn btn-warning">
-					<span class="glyphicon glyphicon-log-out"></span> odhlásiť
-				</a>
-			</div>
-		</div>
+{% block adminActions %}
+	{{ parent() }}
+	<button
+		class="btn btn-danger"
+		{{ stimulus_action('modal', 'openModal') }}
+	>
+		<i class="bi bi-trash-fill"></i> zmaž
+	</button>
+	{% include 'admin/modal.html.twig' with {
+		modalTitle: 'Pozor!',
+		modalBody: 'Pri zmazaní stránky sa zmažú aj všetky podstránky a obrazky v nich!',
+		modalActions: '<a href="' ~ path('admin_page_delete', {'id': pageId}) ~ '" class="btn btn-danger"><i class="bi bi-trash-fill"></i> zmaž</a>',
+	} %}
+{% endblock adminActions %}
 
-		{{ form(form, { 'attr' : {'role' : 'form', 'class' : 'form-horizontal' } } ) }}
+{% block adminContent %}
 
-		{% for data in entity.pageImages %}
-			<div class="row admin-page-images">
-				<div class="col-sm-2 text-right text-bold">
-					{% set name = 'image.type.' ~ data.typ %}
-					{{ name|trans }}
-				</div>
-				<div class="col-sm-10">
-					<div class="btn-group">
-						{% if data.isSet %}
-							<a class="btn btn-success btn-xs" href="{{ path('admin_image_edit', { 'id' : data.id, 'pageId' : entity.id }) }}">
-								uprav
-							</a>
-							<a class="btn btn-danger btn-xs" href="{{ path('admin_image_delete', { 'id' : data.id, 'pageId' : entity.id, 'type' : data.typ }) }}">
-								zmaz
-							</a>
-						{% else %}
-							<a class="btn btn-success btn-xs" href="{{ path('admin_image_create', { 'pageId' : entity.id, 'type' : data.typ }) }}">
-								pridaj
-							</a>
-						{% endif %}
+	{{ form(form) }}
+
+	{% for data in entity.pageImages %}
+		<div class="card mb-2">
+			<div class="card-header">
+				<div class="row">
+					<div class="col">
+						{% set name = 'image.type.' ~ data.typ %}
+						{{ name|trans }}
 					</div>
-					{% if data.isSet %}
-						<div>
-							<img src="data:image/png;base64, {{ data.data }}" alt="{{ data.title }}" />
+					<div class="col-auto">
+						<div class="btn-group btn-group-sm">
+							{% if data.isSet %}
+								<a class="btn btn-success"
+								   href="{{ path('admin_image_edit', {'id': data.id, 'pageId': entity.id}) }}">
+									<i class="bi bi-pencil-square"></i> uprav
+								</a>
+								<a class="btn btn-danger"
+								   href="{{ path('admin_image_delete', {'id': data.id, 'pageId': entity.id, 'type': data.typ}) }}">
+									<i class="bi bi-trash-fill"></i> zmaž
+								</a>
+							{% else %}
+								<a class="btn btn-success"
+								   href="{{ path('admin_image_create', {'pageId': entity.id, 'type': data.typ}) }}">
+									<i class="bi bi-plus-square"></i> pridaj
+								</a>
+							{% endif %}
 						</div>
-					{% endif %}
+					</div>
 				</div>
 			</div>
-		{% endfor %}
-
-		<!-- Modal -->
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="myModalLabel">Pozor!</h4>
+			<div class="card-body">
+				{% if data.isSet %}
+					<div class="text-center background p-5">
+						<img src="data:image/png;base64, {{ data.data }}" alt="{{ data.title }}" />
 					</div>
-					<div class="modal-body">
-						Pri zmazaní stránky sa zmažú aj všetky podstránky a obrazky v nich!
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" data-dismiss="modal">Zatvor</button>
-						<a href="{{ path('admin_page_delete', { 'id' : entity.id } ) }}" class="btn btn-danger">
-							<span class="glyphicon glyphicon-trash"></span> zmaž
-						</a>
-					</div>
-				</div>
+				{% endif %}
 			</div>
 		</div>
+	{% endfor %}
 
-	</div>
-{% endblock %}
+
+
+{% endblock adminContent %}

@@ -2,10 +2,6 @@
 
 declare(strict_types=1);
 
-/*
- * @author majoskorec <majoskorec@gmail.com>
- */
-
 namespace App\Form\Type;
 
 use App\Entity\Image;
@@ -16,6 +12,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+/**
+ * @template-extends AbstractType<Image>
+ */
 final class ImageType extends AbstractType
 {
     /**

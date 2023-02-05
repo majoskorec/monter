@@ -9,9 +9,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route(path: '/admin/page/{id}/content', name: 'admin_get_page_content', methods: ['GET'])]
 final class ContentController extends AbstractController
 {
-    #[Route(path: '/admin/page/{id}/content', name: 'admin_get_page_content', methods: ['GET'])]
     public function __invoke(Page $page): Response
     {
         return $this->render('admin/page/content.html.twig', ['page' => $page]);

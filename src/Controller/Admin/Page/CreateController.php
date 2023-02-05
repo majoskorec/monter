@@ -14,9 +14,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route(path: '/admin/page/create/{parentId}', name: 'admin_page_create', methods: ['GET', 'POST'])]
 final class CreateController extends AbstractController
 {
-    #[Route(path: '/admin/page/create/{parentId}', name: 'admin_page_create', methods: ['GET', 'POST'])]
     public function __invoke(
         Request $request,
         FormFactoryInterface $formFactory,
