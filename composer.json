@@ -93,7 +93,10 @@
     "config": {
         "allow-plugins": {
             "symfony/flex": true,
-            "symfony/runtime": true
+            "symfony/runtime": true,
+            "ergebnis/composer-normalize": true,
+            "phpro/grumphp": true,
+            "phpstan/extension-installer": true
         },
         "optimize-autoloader": true,
         "sort-packages": true
