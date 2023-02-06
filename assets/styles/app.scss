@@ -20,10 +20,14 @@ img[data-hover-target="hover"] {
 .container {
     position: relative;
     width: 1170px !important;
+    max-width: 1170px !important;
+    padding: 0 15px;
+    display: table;
 
-    .content {
+    .page-content {
         margin-left: 220px;
         height: 768px;
+        width: 920px;
 
         .child-list {
             padding-top: 55px;
