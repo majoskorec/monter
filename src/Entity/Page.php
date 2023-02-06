@@ -50,7 +50,7 @@ class Page
     #[ORM\OneToMany(mappedBy: "parentPage", targetEntity: Page::class, orphanRemoval: true)]
     private Collection $childPages;
 
-    #[ORM\Column(name: "row", type: "integer", length: 1, nullable: true)]
+    #[ORM\Column(name: "`row`", type: "integer", length: 1, nullable: true)]
     #[Assert\NotBlank]
     #[Assert\Range(min: 1, max: 9)]
     private ?int $row = null;
