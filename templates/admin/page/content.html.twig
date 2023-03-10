@@ -1,13 +1,15 @@
-{% for pageImage in page.pageImages %}
+<turbo-frame id="admin-page-content-{{ page.id }}">
+{% for page_image in page.pageImages %}
 	<div class="">
 		<div class="text-bold">
-			{% set name = 'image.type.' ~ pageImage.typ %}
+			{% set name = 'image.type.' ~ page_image.typ %}
 			{{ name|trans }}
 		</div>
-		{% if pageImage.isSet %}
+		{% if page_image.isSet %}
 			<div class="">
-				<img src="data:image/png;base64, {{ pageImage.data }}" alt="{{ pageImage.title }}" />
+				<img src="data:image/png;base64, {{ page_image.data }}" alt="{{ page_image.title }}" />
 			</div>
 		{% endif %}
 	</div>
 {% endfor %}
+</turbo-frame>

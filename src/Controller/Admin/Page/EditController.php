@@ -13,14 +13,10 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Throwable;
 
+#[Route(path: '/admin/page/{id}/edit', name: 'admin_page_edit', methods: ['GET', 'PUT'])]
 final class EditController extends AbstractController
 {
-    /**
-     * @throws Throwable
-     */
-    #[Route(path: '/admin/page/{id}/edit', name: 'admin_page_edit', methods: ['GET', 'PUT'])]
     public function __invoke(
         Page $page,
         FormFactoryInterface $formFactory,
@@ -45,7 +41,8 @@ final class EditController extends AbstractController
 
         return $this->render('admin/page/edit.html.twig', [
             'entity' => $page,
-            'form' => $form->createView(),
+            'form' => $form,
+            'pageId' => $page->getId(),
         ]);
     }
 }

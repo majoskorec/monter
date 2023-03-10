@@ -8,7 +8,7 @@ use App\Entity\Gallery;
 use App\Entity\Page;
 use App\Form\Type\GalleryType;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -16,15 +16,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route(path: '/admin/gallery/create/{pageId}', name: 'admin_gallery_create', methods: ['GET', 'POST'])]
 final class CreateController extends AbstractController
 {
-    #[Route(path: '/admin/gallery/create/{pageId}', name: 'admin_gallery_create', methods: ['GET', 'POST'])]
-    #[ParamConverter('page', class: Page::class, options: ['mapping' => ['pageId' => 'id']])]
     public function __invoke(
         Request $request,
         FormFactoryInterface $formFactory,
         EntityManagerInterface $entityManager,
-        Page $page
+        #[MapEntity(mapping: ['pageId' => 'id'])]
+        Page $page,
     ): Response {
         $entity = new Gallery();
         $form = $formFactory->create(GalleryType::class, $entity, ['pageId' => $page->getId(), 'create' => true]);
@@ -44,7 +44,7 @@ final class CreateController extends AbstractController
 
         return $this->render('admin/gallery/create.html.twig', [
             'entity' => $entity,
-            'form' => $form->createView(),
+            'form' => $form,
             'pageId' => $page->getId(),
         ]);
     }

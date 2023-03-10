@@ -10,9 +10,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route(path: '/admin/page/{id}/delete', name: 'admin_page_delete', methods: ['GET'])]
 final class DeleteController extends AbstractController
 {
-    #[Route(path: '/admin/page/{id}/delete', name: 'admin_page_delete', methods: ['GET'])]
     public function __invoke(Page $page, EntityManagerInterface $entityManager): Response
     {
         $entityManager->remove($page);

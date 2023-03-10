@@ -5,27 +5,21 @@ declare(strict_types=1);
 namespace App\Model;
 
 use App\Entity\Image;
-use JetBrains\PhpStorm\Pure;
 
 final class PageImage
 {
-    public function __construct(private string $typ, private ?Image $image)
-    {
+    public function __construct(
+        public readonly string $typ,
+        public readonly ?Image $image,
+    ) {
     }
 
-    public function getTyp(): string
-    {
-        return $this->typ;
-    }
-
-    #[Pure]
-    public function getData(): ?string
+    public function data(): ?string
     {
         return $this->image?->getImage();
     }
 
-    #[Pure]
-    public function getTitle(): ?string
+    public function title(): ?string
     {
         return $this->image?->getTitle();
     }
@@ -35,8 +29,7 @@ final class PageImage
         return $this->image !== null;
     }
 
-    #[Pure]
-    public function getId(): ?int
+    public function id(): ?int
     {
         return $this->image?->getId();
     }

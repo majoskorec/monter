@@ -1,26 +1,40 @@
+@import "~bootstrap/scss/bootstrap";
+@import "~bootstrap-icons";
+
 body {
     background-color: #3c746b;
 }
 
-.hover {
+.background {
+    background-color: #3c746b;
+}
+
+.hide {
+    display: none;
+}
+
+img[data-hover-target="hover"] {
     cursor: pointer;
 }
 
 .container {
     position: relative;
     width: 1170px !important;
+    max-width: 1170px !important;
+    padding: 0 15px;
+    display: table;
 
-    .content {
+    .page-content {
         margin-left: 220px;
         height: 768px;
+        width: 920px;
 
         .child-list {
             padding-top: 55px;
 
             .row {
                 height: 110px;
-                margin: 0 10px;
-                padding: 0 30px;
+                padding: 0 35px;
                 overflow: hidden;
                 position: relative;
 
@@ -174,6 +188,11 @@ body {
             font-family: "Courier New", Courier, monospace;
             font-size: 110%;
             padding: 0 5px;
+
+            a {
+                color: black;
+                text-decoration: none;
+            }
         }
 
         .admin-child-pages {

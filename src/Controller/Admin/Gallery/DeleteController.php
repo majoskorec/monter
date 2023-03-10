@@ -10,9 +10,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route(path: '/admin/gallery/{id}/delete', name: 'admin_gallery_delete', methods: ['GET'])]
 final class DeleteController extends AbstractController
 {
-    #[Route(path: '/admin/gallery/{id}/delete', name: 'admin_gallery_delete', methods: ['GET'])]
     public function __invoke(EntityManagerInterface $entityManager, Gallery $entity): Response
     {
         $pageId = $entity->getPage()->getId();

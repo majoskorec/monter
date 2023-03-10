@@ -1,0 +1,14 @@
+Bad credentials: Zlé prihlasovacie údaje
+validation:
+    url: Url môže obsahovať len male pismenká, číslice, pomlčku a podčiarkovník
+    row: Riadok môže byť len v rozmedzí 1 až 9
+    image: Obrázok musí byť typu png
+image:
+    type:
+        title: Titulka
+        button: Button
+        button_hover: Zvýraznený button
+        back: Späť
+        back_hover: Zvýraznený späť
+        description: Popis
+        content: Obsah

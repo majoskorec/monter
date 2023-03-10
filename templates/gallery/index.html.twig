@@ -20,17 +20,20 @@
 {# ---- content ------------------------------------------------------------- #}
 {% block content %}
 
-	<div style="margin: 80px 40px 0 20px; text-align: center; height: 500px; border: 4px solid white; position: relative;">
+	<div
+		style="margin: 80px 40px 0 20px; height: 500px; border: 4px solid white;"
+		class="position-relative text-center"
+	>
 		<img src="data:image/png;base64, {{ gallery.image.image }}" alt="{{ gallery.title }}" class="" />
-		<a href="{{ url('page', { 'page' : gallery.page.urlKey } ) }}" class="gallery-back"></a>
+		<a href="{{ url('page', {'page': gallery.page.urlKey}) }}" class="gallery-back"></a>
 	</div>
 
 	{% if nextGallery is not empty %}
-		<a href="{{ url('gallery', { 'page' : gallery.page.urlKey, 'gallery' : nextGallery }) }}" class="navigation next"></a>
+		<a href="{{ url('gallery', {'page': gallery.page.urlKey, 'gallery': nextGallery}) }}" class="navigation next"></a>
 	{% endif %}
 
 	{% if prevGallery is not empty %}
-		<a href="{{ url('gallery', { 'page' : gallery.page.urlKey, 'gallery' : prevGallery }) }}" class="navigation prev"></a>
+		<a href="{{ url('gallery', {'page': gallery.page.urlKey, 'gallery': prevGallery}) }}" class="navigation prev"></a>
 	{% endif %}
 	{# ---- end content --------------------------------------------------------- #}
 

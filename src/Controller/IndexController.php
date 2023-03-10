@@ -8,9 +8,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/', name: 'index')]
 final class IndexController extends AbstractController
 {
-    #[Route('/', name: 'index')]
     public function __invoke(): RedirectResponse
     {
         return $this->redirectToRoute('page', ['page' => 'index']);
