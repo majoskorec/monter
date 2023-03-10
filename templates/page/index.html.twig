@@ -107,14 +107,25 @@
                                             />
                                         {% endif %}
                                         {% if child.buttonImgHover is not empty %}
-                                            <a href='{{ url('page', {'page': child.urlKey}) }}'>
-                                                <img
-                                                    src="data:image/png;base64, {{ child.buttonImgHover.image }}"
-                                                    alt="{{ child.title }}"
-                                                    class="hide"
-                                                    {{ stimulus_target('hover', 'hover') }}
-                                                />
-                                            </a>
+                                            {% if child.externalLink is null %}
+                                                <a href='{{ url('page', {'page': child.urlKey}) }}'>
+                                                    <img
+                                                        src="data:image/png;base64, {{ child.buttonImgHover.image }}"
+                                                        alt="{{ child.title }}"
+                                                        class="hide"
+                                                        {{ stimulus_target('hover', 'hover') }}
+                                                    />
+                                                </a>
+                                            {% else %}
+                                                <a href='{{ child.externalLink }}' target="_blank">
+                                                    <img
+                                                        src="data:image/png;base64, {{ child.buttonImgHover.image }}"
+                                                        alt="{{ child.title }}"
+                                                        class="hide"
+                                                        {{ stimulus_target('hover', 'hover') }}
+                                                    />
+                                                </a>
+                                            {% endif %}
                                         {% endif %}
                                     </div>
                                 {% endfor %}

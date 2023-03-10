@@ -8,6 +8,7 @@
     <description>Custom rule set.</description>
 
     <exclude-pattern>tests/</exclude-pattern>
+    <exclude-pattern>migrations/</exclude-pattern>
 
     <rule ref="rulesets/cleancode.xml" />
     <rule ref="rulesets/codesize.xml" />

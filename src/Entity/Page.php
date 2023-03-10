@@ -89,6 +89,10 @@ class Page
     #[ORM\OneToMany(mappedBy: "page", targetEntity: Gallery::class, orphanRemoval: true)]
     private Collection $gallery;
 
+    #[ORM\Column(name: "external_link", type: "string", nullable: true)]
+    #[Assert\Url]
+    private ?string $externalLink;
+
     public function __construct()
     {
         $this->childPages = new ArrayCollection();
@@ -293,5 +297,15 @@ class Page
 
                 break;
         }
+    }
+
+    public function getExternalLink(): ?string
+    {
+        return $this->externalLink;
+    }
+
+    public function setExternalLink(?string $externalLink): void
+    {
+        $this->externalLink = $externalLink;
     }
 }
