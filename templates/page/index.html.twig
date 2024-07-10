@@ -75,7 +75,8 @@
                     <div
                         class="row m-0"
                         {{ stimulus_controller('row-scroll') }}
-                        {{ stimulus_action('row-scroll', 'wheelScroll', 'wheel') }}
+                        data-action="wheel->row-scroll#wheelScroll:passive"
+{#                        {{ stimulus_action('row-scroll', 'wheelScroll', 'wheel') }}#}
                     >
                         <a
                             href="javascript:void(0)"
