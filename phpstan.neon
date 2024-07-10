@@ -8,4 +8,4 @@ parameters:
         - src
     ignoreErrors:
         - '#.::\$id is never written, only read.#'
-        - '#PHPDoc tag @extends contains generic type [a-zA-Z0-9\\<>]+ but class Symfony\\Component\\Form\\AbstractType is not generic\.#'
+#        - '#PHPDoc tag @extends contains generic type [a-zA-Z0-9\\<>]+ but class Symfony\\Component\\Form\\AbstractType is not generic\.#'

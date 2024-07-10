@@ -1,5 +1,10 @@
 {% extends "base.html.twig" %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+{% endblock %}
+
 {% block body -%}
 	<div class="container">
 		<div class="row pt-2">
@@ -16,8 +21,15 @@
 		</div>
 
 		<div class="row pb-2">
-			<div class="col text-end">
-				<div class="btn-group btn-group-sm" role="group" aria-label="Actions" {% block adminActionAttrs %}{% endblock %}>
+			<div
+                class="col text-end"
+                {% block adminActionAttrs %}{% endblock %}
+            >
+				<div
+                    class="btn-group btn-group-sm"
+                    role="group"
+                    aria-label="Actions"
+                >
 					{% block adminActions %}
 						<a href="{{ path('admin_page_index') }}" class="btn btn-outline-dark">
 							<i class="bi bi-list"></i> zoznam
@@ -32,6 +44,8 @@
 						{% endif %}
 					{% endblock adminActions %}
 				</div>
+                {% block adminActionsModals %}
+                {% endblock adminActionsModals %}
 			</div>
 		</div>
 

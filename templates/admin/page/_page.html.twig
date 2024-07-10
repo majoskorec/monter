@@ -6,7 +6,7 @@
 		<i
 			style="cursor: pointer"
 			class="bi bi-arrows-expand"
-			{{ stimulus_action({'admin-page': {'click': 'toggleChildren'}}) }}
+			{{ stimulus_action('admin-page', 'toggleChildren', 'click') }}
 			{{ stimulus_target('admin-page', 'toggleChildren') }}
 		></i>
 	{% endif %}
@@ -21,7 +21,7 @@
 	<i
 		style="cursor: pointer"
 		class="bi bi-folder fs-4"
-		{{ stimulus_action({'admin-page': {'click': 'expandContent', 'mouseover': 'folderMouseOver', 'mouseout': 'folderMouseOut'}}) }}
+		{{ stimulus_action('admin-page', 'expandContent', 'click')|stimulus_action('admin-page', 'folderMouseOver', 'mouseover')|stimulus_action('admin-page', 'mouseout', 'folderMouseOver') }}
 		{{ stimulus_target('admin-page', 'folder') }}
 	></i>
 

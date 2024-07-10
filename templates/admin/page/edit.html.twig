@@ -6,17 +6,22 @@
 {% block adminActions %}
 	{{ parent() }}
 	<button
+        type="button"
 		class="btn btn-danger"
 		{{ stimulus_action('modal', 'openModal') }}
 	>
 		<i class="bi bi-trash-fill"></i> zmaž
 	</button>
+{% endblock adminActions %}
+
+{% block adminActionsModals %}
+    {{ parent() }}
 	{% include 'admin/modal.html.twig' with {
 		modalTitle: 'Pozor!',
 		modalBody: 'Pri zmazaní stránky sa zmažú aj všetky podstránky a obrazky v nich!',
 		modalActions: '<a href="' ~ path('admin_page_delete', {'id': pageId}) ~ '" class="btn btn-danger"><i class="bi bi-trash-fill"></i> zmaž</a>',
 	} %}
-{% endblock adminActions %}
+{% endblock adminActionsModals %}
 
 {% block adminContent %}
 

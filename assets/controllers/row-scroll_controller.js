@@ -1,18 +1,10 @@
 import { Controller } from '@hotwired/stimulus';
 
-/*
- * This is an example Stimulus controller!
- *
- * Any element with a data-controller="hello" attribute will cause
- * this controller to be executed. The name "hello" comes from the filename:
- * row-scroll_controller.js -> "hello"
- *
- * Delete this file or adapt it for your use!
- */
 export default class extends Controller {
     static targets = [ "left", "right", "item", "row" ]
 
-    connect() {
+    connect()
+    {
         this.scrollingAnimation = false;
         let items = this.itemTargets;
         this.firstItem = items.shift();
@@ -23,18 +15,28 @@ export default class extends Controller {
         }
     }
 
+    canScrollRight()
+    {
+        return (parseInt(this.rowTarget.style.marginLeft) || 0) !== 0;
+    }
+
+    canScrollLeft()
+    {
+        return this.lastItem.offsetTop !== this.firstItem.offsetTop;
+    }
+
     arrowVisibility()
     {
-        if (this.lastItem.offsetTop === this.firstItem.offsetTop) {
-            this.leftTarget.classList.add('hide');
-        } else {
+        if (this.canScrollLeft()) {
             this.leftTarget.classList.remove('hide');
+        } else {
+            this.leftTarget.classList.add('hide');
         }
 
-        if ((parseInt(this.rowTarget.style.marginLeft) || 0) === 0) {
-            this.rightTarget.classList.add('hide');
-        } else {
+        if (this.canScrollRight()) {
             this.rightTarget.classList.remove('hide');
+        } else {
+            this.rightTarget.classList.add('hide');
         }
     }
 
@@ -46,6 +48,23 @@ export default class extends Controller {
     rightScrolling()
     {
         this.animate(150, this.rowTarget, this.width);
+    }
+
+    wheelScroll(event)
+    {
+        if (event.deltaY > 0) {
+            if (this.canScrollRight()) {
+                this.animate(150, this.rowTarget, this.width);
+            }
+
+            return;
+        }
+
+        if (event.deltaY < 0) {
+            if (this.canScrollLeft()) {
+                this.animate(150, this.rowTarget, -1 * this.width);
+            }
+        }
     }
 
     animate(duration, element, length)

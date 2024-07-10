@@ -28,7 +28,9 @@ grumphp:
         phpparser:
             ignore_patterns:
                 - tests/
-            kind: php7
+                - config/bundles.php
+                - importmap.php
+            kind: php8
             visitors:
                 declare_strict_types: ~
                 no_exit_statements: ~
@@ -40,14 +42,12 @@ grumphp:
                 forbidden_function_calls:
                     blacklist:
                         - 'var_dump'
-                forbidden_static_method_calls:
-                    blacklist:
-                        - 'Dumper::dump'
+                        - 'dd'
         phpstan:
             configuration: 'phpstan.neon'
             level: 7
         phpversion: ~
-        psalm: ~
+#        psalm: ~ # not supperted php 8.3
         shell: ~
         twigcs:
             path: 'templates/'
