@@ -1,68 +1,85 @@
 <div
-	class="admin-page clearfix"
-	{{ stimulus_controller('admin-page', {pageContentUrl: path('admin_get_page_content', {'id': page.id})}) }}
+    class="admin-page clearfix"
+    {{ stimulus_controller('admin-page', {
+        pageContentUrl: path('admin_get_page_content', {'id': page.id}),
+    }) }}
 >
-	{% if not page.getChildPages().isEmpty() %}
-		<i
-			style="cursor: pointer"
-			class="bi bi-arrows-expand"
-			{{ stimulus_action('admin-page', 'toggleChildren', 'click') }}
-			{{ stimulus_target('admin-page', 'toggleChildren') }}
-		></i>
-	{% endif %}
+    {% if not page.getChildPages().isEmpty() %}
+        <i
+            style="cursor: pointer"
+            class="bi bi-arrows-expand"
+            {{ stimulus_action('admin-page', 'toggleChildren', 'click') }}
+            {{ stimulus_target('admin-page', 'toggleChildren') }}
+        ></i>
+    {% endif %}
 
-	{% if page.row is not empty %}
-		row:
-		<span class="badge text-bg-secondary">
+    {% if page.row is not empty %}
+        row:
+        <span class="badge text-bg-secondary">
 			{{ page.row }}
 		</span>
-	{% endif %}
+    {% endif %}
 
-	<i
-		style="cursor: pointer"
-		class="bi bi-folder fs-4"
-		{{ stimulus_action('admin-page', 'expandContent', 'click')|stimulus_action('admin-page', 'folderMouseOver', 'mouseover')|stimulus_action('admin-page', 'mouseout', 'folderMouseOver') }}
-		{{ stimulus_target('admin-page', 'folder') }}
-	></i>
+    <i
+        style="cursor: pointer"
+        class="bi bi-folder fs-4"
+        {{ stimulus_action('admin-page', 'expandContent', 'click')|stimulus_action('admin-page', 'folderMouseOver', 'mouseover')|stimulus_action('admin-page', 'mouseout', 'folderMouseOver') }}
+        {{ stimulus_target('admin-page', 'folder') }}
+    ></i>
 
-	<span class="title">{{ page.title }}</span>
-	{% apply spaceless %}
-	<span class="url">
+    <span class="title">{{ page.title }}</span>
+    {% apply spaceless %}
+        <span class="url">
 		<a href="/{{ page.urlKey }}" target="_blank">
 			/{{ page.urlKey }}
 		</a>
 	</span>
-	{% endapply %}
-	<div class="btn-group btn-group-sm" role="group" aria-label="Actions">
-		<a href="{{ path('admin_page_edit', {'id': page.id}) }}" class="btn btn-outline-dark">
-			<i class="bi bi-pencil-square"></i> uprav
-		</a>
-		<a href="{{ path('admin_page_create', {'parentId': page.id}) }}" class="btn btn-outline-dark">
-			<i class="bi bi-file-earmark-plus"></i> pridaj podstránku
-		</a>
-		<a href="{{ path('admin_gallery_index', {'pageId': page.id}) }}" class="btn btn-outline-dark">
-			<i class="bi bi-images"></i> galéria <span class="badge">{{ page.gallery|length }}</span>
-		</a>
-	</div>
+    {% endapply %}
+    <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
+        <a
+            href="{{ path('admin_page_edit', {'id': page.id}) }}"
+            class="btn btn-outline-dark"
+        >
+            <i class="bi bi-pencil-square"></i>
+            uprav
+        </a>
+        <a
+            href="{{ path('admin_page_create', {'parentId': page.id}) }}"
+            class="btn btn-outline-dark"
+        >
+            <i class="bi bi-file-earmark-plus"></i>
+            pridaj podstránku
+        </a>
+        <a
+            href="{{ path('admin_gallery_index', {'pageId': page.id}) }}"
+            class="btn btn-outline-dark"
+        >
+            <i class="bi bi-images"></i>
+            galéria
+            <span class="badge">
+                {{- page.gallery|length -}}
+            </span>
+        </a>
+    </div>
 
-	<turbo-frame
-		id="admin-page-content-{{ page.id }}"
-		class="admin-page-content"
-		{{ stimulus_target('admin-page', 'content') }}
-	></turbo-frame>
+    <turbo-frame
+        id="admin-page-content-{{ page.id }}"
+        class="admin-page-content"
+        {{ stimulus_target('admin-page', 'content') }}
+    ></turbo-frame>
 
-	<div
-		class="admin-child-pages"
-		{{ stimulus_target('admin-page', 'children') }}
-	>
-		{% for i in range(1, 9) %}
-			{% if not page.childPagesForRow(i).isEmpty %}
-				<div class="admin-child-row">
-					{% for child in page.childPagesForRow(i) %}
-						{% include 'admin/page/_page.html.twig' with {'page': child} %}
-					{% endfor %}
-				</div>
-			{% endif %}
-		{% endfor %}
-	</div>
+    <div
+        class="admin-child-pages"
+        {{ stimulus_target('admin-page', 'children') }}
+    >
+        {% for i in range(1, 9) %}
+            {% if not page.childPagesForRow(i).isEmpty %}
+                <div class="admin-child-row">
+                    {% for child in page.childPagesForRow(i) %}
+                        {% include 'admin/page/_page.html.twig' with {'page': child} %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
 </div>

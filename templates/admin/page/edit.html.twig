@@ -4,67 +4,80 @@
 {% block adminActionAttrs %}{{ stimulus_controller('modal') }}{% endblock %}
 
 {% block adminActions %}
-	{{ parent() }}
-	<button
+    {{ parent() }}
+    <button
         type="button"
-		class="btn btn-danger"
-		{{ stimulus_action('modal', 'openModal') }}
-	>
-		<i class="bi bi-trash-fill"></i> zmaž
-	</button>
+        class="btn btn-danger"
+        {{ stimulus_action('modal', 'openModal') }}
+    >
+        <i class="bi bi-trash-fill"></i>
+        zmaž
+    </button>
 {% endblock adminActions %}
 
 {% block adminActionsModals %}
     {{ parent() }}
-	{% include 'admin/modal.html.twig' with {
-		modalTitle: 'Pozor!',
-		modalBody: 'Pri zmazaní stránky sa zmažú aj všetky podstránky a obrazky v nich!',
-		modalActions: '<a href="' ~ path('admin_page_delete', {'id': pageId}) ~ '" class="btn btn-danger"><i class="bi bi-trash-fill"></i> zmaž</a>',
-	} %}
+    {% include 'admin/modal.html.twig' with {
+        modalTitle: 'Pozor!',
+        modalBody: 'Pri zmazaní stránky sa zmažú aj všetky podstránky a obrazky v nich!',
+        modalActions: '<a href="' ~ path('admin_page_delete', {'id': pageId}) ~ '" class="btn btn-danger"><i class="bi bi-trash-fill"></i> zmaž</a>',
+    } %}
 {% endblock adminActionsModals %}
 
 {% block adminContent %}
 
-	{{ form(form) }}
+    {{ form(form) }}
 
-	{% for data in entity.pageImages %}
-		<div class="card mb-2">
-			<div class="card-header">
-				<div class="row">
-					<div class="col">
-						{% set name = 'image.type.' ~ data.typ %}
-						{{ name|trans }}
-					</div>
-					<div class="col-auto">
-						<div class="btn-group btn-group-sm">
-							{% if data.isSet %}
-								<a class="btn btn-success"
-								   href="{{ path('admin_image_edit', {'id': data.id, 'pageId': entity.id}) }}">
-									<i class="bi bi-pencil-square"></i> uprav
-								</a>
-								<a class="btn btn-danger"
-								   href="{{ path('admin_image_delete', {'id': data.id, 'pageId': entity.id, 'type': data.typ}) }}">
-									<i class="bi bi-trash-fill"></i> zmaž
-								</a>
-							{% else %}
-								<a class="btn btn-success"
-								   href="{{ path('admin_image_create', {'pageId': entity.id, 'type': data.typ}) }}">
-									<i class="bi bi-plus-square"></i> pridaj
-								</a>
-							{% endif %}
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="card-body">
-				{% if data.isSet %}
-					<div class="text-center background p-5">
-						<img src="data:image/png;base64, {{ data.data }}" alt="{{ data.title }}" />
-					</div>
-				{% endif %}
-			</div>
-		</div>
-	{% endfor %}
+    {% for data in entity.pageImages %}
+        <div class="card mb-2">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        {% set name = 'image.type.' ~ data.typ %}
+                        {{ name|trans }}
+                    </div>
+                    <div class="col-auto">
+                        <div class="btn-group btn-group-sm">
+                            {% if data.isSet %}
+                                <a
+                                    class="btn btn-success"
+                                    href="{{ path('admin_image_edit', {'id': data.id, 'pageId': entity.id}) }}"
+                                >
+                                    <i class="bi bi-pencil-square"></i>
+                                    uprav
+                                </a>
+                                <a
+                                    class="btn btn-danger"
+                                    href="{{ path('admin_image_delete', {'id': data.id, 'pageId': entity.id, 'type': data.typ}) }}"
+                                >
+                                    <i class="bi bi-trash-fill"></i>
+                                    zmaž
+                                </a>
+                            {% else %}
+                                <a
+                                    class="btn btn-success"
+                                    href="{{ path('admin_image_create', {'pageId': entity.id, 'type': data.typ}) }}"
+                                >
+                                    <i class="bi bi-plus-square"></i>
+                                    pridaj
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                {% if data.isSet %}
+                    <div class="text-center background p-5">
+                        <img
+                            src="data:image/png;base64,{{ data.data }}"
+                            alt="{{ data.title }}"
+                        />
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
 
 
 

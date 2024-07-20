@@ -6,50 +6,63 @@
 {% endblock %}
 
 {% block body -%}
-	<div class="container">
-		<div class="row pt-2">
-			<div class="col">
-				<h1>
-					{% block adminTitle %}{% endblock %}
-				</h1>
-			</div>
-			<div class="col-auto">
-				<a href="{{ path('logout') }}" class="btn btn-success">
-					<i class="bi bi-box-arrow-right"></i> odhlásiť
-				</a>
-			</div>
-		</div>
+    <div class="container">
+        <div class="row pt-2">
+            <div class="col">
+                <h1>
+                    {% block adminTitle %}{% endblock %}
+                </h1>
+            </div>
+            <div class="col-auto">
+                <a href="{{ path('logout') }}" class="btn btn-success">
+                    <i class="bi bi-box-arrow-right"></i>
+                    odhlásiť
+                </a>
+            </div>
+        </div>
 
-		<div class="row pb-2">
-			<div
+        <div class="row pb-2">
+            <div
                 class="col text-end"
                 {% block adminActionAttrs %}{% endblock %}
             >
-				<div
+                <div
                     class="btn-group btn-group-sm"
                     role="group"
                     aria-label="Actions"
                 >
-					{% block adminActions %}
-						<a href="{{ path('admin_page_index') }}" class="btn btn-outline-dark">
-							<i class="bi bi-list"></i> zoznam
-						</a>
-						{% if pageId is defined and pageId is not null %}
-							<a href="{{ path('admin_page_edit', {'id': pageId}) }}" class="btn btn-outline-dark">
-								<i class="bi bi-file-earmark-richtext"></i> stránka
-							</a>
-							<a href="{{ path('admin_gallery_index', {'pageId': pageId}) }}" class="btn btn-outline-dark">
-								<i class="bi bi-images"></i> galéria
-							</a>
-						{% endif %}
-					{% endblock adminActions %}
-				</div>
+                    {% block adminActions %}
+                        <a
+                            href="{{ path('admin_page_index') }}"
+                            class="btn btn-outline-dark"
+                        >
+                            <i class="bi bi-list"></i>
+                            zoznam
+                        </a>
+                        {% if pageId is defined and pageId is not null %}
+                            <a
+                                href="{{ path('admin_page_edit', {'id': pageId}) }}"
+                                class="btn btn-outline-dark"
+                            >
+                                <i class="bi bi-file-earmark-richtext"></i>
+                                stránka
+                            </a>
+                            <a
+                                href="{{ path('admin_gallery_index', {'pageId': pageId}) }}"
+                                class="btn btn-outline-dark"
+                            >
+                                <i class="bi bi-images"></i>
+                                galéria
+                            </a>
+                        {% endif %}
+                    {% endblock adminActions %}
+                </div>
                 {% block adminActionsModals %}
                 {% endblock adminActionsModals %}
-			</div>
-		</div>
+            </div>
+        </div>
 
-		{% block adminContent %}{% endblock adminContent %}
+        {% block adminContent %}{% endblock adminContent %}
 
-	</div>
+    </div>
 {% endblock body %}

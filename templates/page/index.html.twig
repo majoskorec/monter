@@ -8,7 +8,10 @@
     <div class="folder"></div>
     <div class="title">
         {% if page.titleImg is not empty %}
-            <img src="data:image/png;base64, {{ page.titleImg.image }}" alt="{{ page.titleImg.title }}" />
+            <img
+                src="data:image/png;base64,{{ page.titleImg.image }}"
+                alt="{{ page.titleImg.title }}"
+            />
         {% else %}
             {{ page.title }}
         {% endif %}
@@ -17,14 +20,20 @@
     {% if page.content is empty %}
         <div class="description">
             {% if page.descriptionImg is not empty %}
-                <img src="data:image/png;base64, {{ page.descriptionImg.image }}" alt="{{ page.descriptionImg.title }}" />
+                <img
+                    src="data:image/png;base64,{{ page.descriptionImg.image }}"
+                    alt="{{ page.descriptionImg.title }}"
+                />
             {% else %}
                 sem pojde popis
             {% endif %}
         </div>
         <div class="link">
             {% if page.parentPage is empty %}
-                <a href="{{ url('page', {'page': 'home'}) }}" class="href">
+                <a
+                    href="{{ url('page', {'page': 'home'}) }}"
+                    class="href"
+                >
                     <img src="{{ asset('images/text_index_02.gif') }}" alt="">
                 </a>
             {% else %}
@@ -46,7 +55,7 @@
             {{ stimulus_controller('hover') }}
         >
             <img
-                src="data:image/png;base64, {{ page.backImg.image }}"
+                src="data:image/png;base64,{{ page.backImg.image }}"
                 alt="{{ page.backImg.title }}"
                 {{ stimulus_target('hover', 'origin') }}
             />
@@ -54,7 +63,7 @@
             {% if page.backImgHover is not empty and page.parentPage is not empty %}
                 <a href="{{ url('page', {'page': page.parentPage.urlKey}) }}">
                     <img
-                        src="data:image/png;base64, {{ page.backImgHover.image }}"
+                        src="data:image/png;base64,{{ page.backImgHover.image }}"
                         alt="{{ page.parentPage.title }}"
                         class="hide"
                         {{ stimulus_target('hover', 'hover') }}
@@ -76,7 +85,7 @@
                         class="row m-0"
                         {{ stimulus_controller('row-scroll') }}
                         data-action="wheel->row-scroll#wheelScroll:passive"
-{#                        {{ stimulus_action('row-scroll', 'wheelScroll', 'wheel') }}#}
+                        {#                        {{ stimulus_action('row-scroll', 'wheelScroll', 'wheel') }} #}
                     >
                         <a
                             href="javascript:void(0)"
@@ -103,7 +112,7 @@
                                     >
                                         {% if child.buttonImg is not empty %}
                                             <img
-                                                src="data:image/png;base64, {{ child.buttonImg.image }}"
+                                                src="data:image/png;base64,{{ child.buttonImg.image }}"
                                                 alt="{{ child.title }}"
                                                 {{ stimulus_target('hover', 'origin') }}
                                             />
@@ -112,7 +121,7 @@
                                             {% if child.externalLink is null %}
                                                 <a href='{{ url('page', {'page': child.urlKey}) }}'>
                                                     <img
-                                                        src="data:image/png;base64, {{ child.buttonImgHover.image }}"
+                                                        src="data:image/png;base64,{{ child.buttonImgHover.image }}"
                                                         alt="{{ child.title }}"
                                                         class="hide"
                                                         {{ stimulus_target('hover', 'hover') }}
@@ -121,7 +130,7 @@
                                             {% else %}
                                                 <a href='{{ child.externalLink }}' target="_blank">
                                                     <img
-                                                        src="data:image/png;base64, {{ child.buttonImgHover.image }}"
+                                                        src="data:image/png;base64,{{ child.buttonImgHover.image }}"
                                                         alt="{{ child.title }}"
                                                         class="hide"
                                                         {{ stimulus_target('hover', 'hover') }}
@@ -142,9 +151,17 @@
         {# ---- content image ------------------------------------------------------- #}
 
         {% if page.gallery is not empty %}
-            <a href="{{ url('page-gallery', {'page': page.urlKey}) }}" class="gallery"></a>
+            <a
+                href="{{ url('page-gallery', {'page': page.urlKey}) }}"
+                class="gallery"
+            >
+            </a>
         {% endif %}
-        <img src="data:image/png;base64, {{ page.content.image }}" alt="{{ page.title }}" class="origin" />
+        <img
+            src="data:image/png;base64,{{ page.content.image }}"
+            alt="{{ page.title }}"
+            class="origin"
+        />
 
     {% endif %}
     {# ---- end content --------------------------------------------------------- #}
@@ -156,9 +173,17 @@
 
     {% if page.parentPage is not empty %}
         {% if page.parentPage.parentPage is empty %}
-            <a href="{{ url('page', {'page': page.parentPage.urlKey}) }}" class="back-button"></a>
+            <a
+                href="{{ url('page', {'page': page.parentPage.urlKey}) }}"
+                class="back-button"
+            >
+            </a>
         {% else %}
-            <a href="{{ url('page', {'page': constant('\\App\\Entity\\Page::HOME_URL_KEY')}) }}" class="back-button"></a>
+            <a
+                href="{{ url('page', {'page': constant('\\App\\Entity\\Page::HOME_URL_KEY')}) }}"
+                class="back-button"
+            >
+            </a>
         {% endif %}
     {% endif %}
 

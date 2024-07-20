@@ -10,33 +10,62 @@
 
         <div class="card-body">
 
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
 
             <form action="{{ path('login') }}" method="post" role="form" class="">
                 <div class="row mb-2">
                     <div class="col-2">
-                        <label for="username" class="form-label">Username</label>
+                        <label
+                            for="username"
+                            class="form-label"
+                        >
+                            Username
+                        </label>
                     </div>
                     <div class="col">
-                        <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control" />
+                        <input
+                            type="text"
+                            id="username"
+                            name="_username"
+                            value="{{ last_username }}"
+                            class="form-control"
+                        />
                     </div>
                 </div>
 
                 <div class="row mb-2">
                     <div class="col-2">
-                        <label for="password" class="form-label">Password</label>
+                        <label
+                            for="password"
+                            class="form-label"
+                        >
+                            Password
+                        </label>
                     </div>
                     <div class="col">
-                        <input type="password" id="password" name="_password"  class="form-control" />
+                        <input
+                            type="password"
+                            id="password"
+                            name="_password"
+                            class="form-control"
+                        />
                     </div>
                 </div>
 
 
-                <input type="hidden" name="_target_path" value="{{ path('admin_page_index') }}"/>
+                <input
+                    type="hidden"
+                    name="_target_path"
+                    value="{{ path('admin_page_index') }}"
+                />
 
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <input
+                    type="hidden"
+                    name="_csrf_token"
+                    value="{{ csrf_token('authenticate') }}"
+                />
 
                 <div class="row">
                     <div class="col text-center">
