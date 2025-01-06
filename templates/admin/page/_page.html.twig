@@ -26,15 +26,14 @@
         {{ stimulus_action('admin-page', 'expandContent', 'click')|stimulus_action('admin-page', 'folderMouseOver', 'mouseover')|stimulus_action('admin-page', 'mouseout', 'folderMouseOver') }}
         {{ stimulus_target('admin-page', 'folder') }}
     ></i>
-
-    <span class="title">{{ page.title }}</span>
-    {% apply spaceless %}
-        <span class="url">
-		<a href="/{{ page.urlKey }}" target="_blank">
-			/{{ page.urlKey }}
-		</a>
-	</span>
-    {% endapply %}
+    <span class="title">
+        {{ page.title }}
+    </span>
+    <span class="url">
+        <a href="/{{ page.urlKey }}" target="_blank">
+            /{{ page.urlKey }}
+        </a>
+    </span>
     <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
         <a
             href="{{ path('admin_page_edit', {'id': page.id}) }}"

@@ -52,6 +52,7 @@ final class PageType extends AbstractType
         }
         $builder->add('externalLink', UrlType::class, [
             'required' => false,
+            'default_protocol' => null,
         ]);
     }
 

@@ -16,15 +16,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity('urlKey')]
 class Page
 {
-    public const IMG_TITLE = 'title';
-    public const IMG_BUTTON = 'button';
-    public const IMG_BUTTON_HOVER = 'button_hover';
-    public const IMG_BACK = 'back';
-    public const IMG_BACK_HOVER = 'back_hover';
-    public const IMG_DESCRIPTION = 'description';
-    public const IMG_CONTENT = 'content';
+    public const string IMG_TITLE = 'title';
+    public const string IMG_BUTTON = 'button';
+    public const string IMG_BUTTON_HOVER = 'button_hover';
+    public const string IMG_BACK = 'back';
+    public const string IMG_BACK_HOVER = 'back_hover';
+    public const string IMG_DESCRIPTION = 'description';
+    public const string IMG_CONTENT = 'content';
 
-    public const HOME_URL_KEY = 'home'; // used in template
+    public const string HOME_URL_KEY = 'home'; // used in template
 
     #[ORM\Id]
     #[ORM\Column(name: "id", type: "integer")]
@@ -47,7 +47,7 @@ class Page
     /**
      * @var Collection<array-key, Page>
      */
-    #[ORM\OneToMany(mappedBy: "parentPage", targetEntity: Page::class, orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Page::class, mappedBy: "parentPage", orphanRemoval: true)]
     private Collection $childPages;
 
     #[ORM\Column(name: "`row`", type: "integer", length: 1, nullable: true)]
@@ -86,7 +86,7 @@ class Page
     /**
      * @var Collection<array-key, Gallery>
      */
-    #[ORM\OneToMany(mappedBy: "page", targetEntity: Gallery::class, orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Gallery::class, mappedBy: "page", orphanRemoval: true)]
     private Collection $gallery;
 
     #[ORM\Column(name: "external_link", type: "string", nullable: true)]
