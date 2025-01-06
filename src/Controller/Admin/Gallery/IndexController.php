@@ -8,7 +8,7 @@ use App\Entity\Page;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(path: '/admin/gallery/{pageId}', name: 'admin_gallery_index', methods: ['GET'])]
 final class IndexController extends AbstractController

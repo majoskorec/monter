@@ -8,7 +8,7 @@ use App\Entity\Page;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[Route(path: '/admin/page/{id}/delete', name: 'admin_page_delete', methods: ['GET'])]
 final class DeleteController extends AbstractController
