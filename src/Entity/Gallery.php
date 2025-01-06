@@ -35,7 +35,7 @@ class Gallery
 
     #[ORM\OneToOne(targetEntity: Image::class, cascade: ["persist"])]
     #[ORM\JoinColumn(name: "image_id", referencedColumnName: "id", nullable: false)]
-    private ?Image $image = null;
+    private ?Image $image = null; // @phpstan-ignore doctrine.associationType
 
     #[Assert\File(maxSize: "1024k", mimeTypes: ["image/png"], mimeTypesMessage: "validation.image")]
     private ?UploadedFile $file = null;

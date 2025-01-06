@@ -1,7 +1,6 @@
 parameters:
+    treatPhpDocTypesAsCertain: false
     level: max
-    checkMissingIterableValueType: false
-    checkGenericClassInNonGenericObjectType: true
     symfony:
         containerXmlPath: var/cache/dev/App_KernelDevDebugContainer.xml
     paths:
