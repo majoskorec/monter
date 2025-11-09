@@ -30,8 +30,8 @@ final class CreateController extends AbstractController
         $entity = new Image();
         $form = $formFactory->create(ImageType::class, $entity, ['create' => true]);
         $form->add('submit', SubmitType::class, [
-            'label' => 'Vytvor',
             'attr' => ['class' => 'btn btn-primary'],
+            'label' => 'Vytvor',
         ]);
         $form->handleRequest($request);
 

@@ -29,8 +29,8 @@ final class CreateController extends AbstractController
         $entity = new Gallery();
         $form = $formFactory->create(GalleryType::class, $entity, ['pageId' => $page->getId(), 'create' => true]);
         $form->add('submit', SubmitType::class, [
-            'label' => 'Vytvor',
             'attr' => ['class' => 'btn btn-primary col-sm-offset-4'],
+            'label' => 'Vytvor',
         ]);
         $form->handleRequest($request);
 

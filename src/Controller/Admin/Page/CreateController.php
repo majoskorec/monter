@@ -21,13 +21,13 @@ final class CreateController extends AbstractController
         Request $request,
         FormFactoryInterface $formFactory,
         EntityManagerInterface $entityManager,
-        ?int $parentId = null
+        ?int $parentId = null,
     ): Response {
         $entity = new Page();
         $form = $formFactory->create(PageType::class, $entity, ['parentPageId' => $parentId]);
         $form->add('submit', SubmitType::class, [
-            'label' => 'Vytvor',
             'attr' => ['class' => 'btn btn-primary col-sm-offset-4'],
+            'label' => 'Vytvor',
         ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

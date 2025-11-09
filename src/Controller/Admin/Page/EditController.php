@@ -21,15 +21,15 @@ final class EditController extends AbstractController
         Page $page,
         FormFactoryInterface $formFactory,
         EntityManagerInterface $entityManager,
-        Request $request
+        Request $request,
     ): Response {
         $form = $formFactory->create(PageType::class, $page, [
             'method' => 'PUT',
             'parentPageId' => $page->getParentPage()?->getId(),
         ]);
         $form->add('submit', SubmitType::class, [
-            'label' => 'Uprav',
             'attr' => ['class' => 'btn btn-primary col-sm-offset-4'],
+            'label' => 'Uprav',
         ]);
         $form->handleRequest($request);
 

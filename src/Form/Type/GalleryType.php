@@ -7,6 +7,7 @@ namespace App\Form\Type;
 use App\Entity\Gallery;
 use App\Entity\Page;
 use Doctrine\ORM\EntityRepository;
+use Override;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -23,12 +24,13 @@ final class GalleryType extends AbstractType
     /**
      * @inheritDoc
      */
+    #[Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        /** @var int $pageId */
         $pageId = $options['pageId'];
-        /** @var bool $create */
+        assert(is_int($pageId));
         $create = $options['create'];
+        assert(is_bool($create));
         $builder->add('urlKey', TextType::class, [
             'label' => 'Url klúč',
             'required' => true,
@@ -38,26 +40,27 @@ final class GalleryType extends AbstractType
             'required' => true,
         ]);
         $builder->add('page', EntityType::class, [
-            'label' => 'Stránka',
+            'attr' => [
+                'readonly' => true,
+            ],
             'class' => Page::class,
-            'query_builder' => function (EntityRepository $er) use ($pageId) {
+            'label' => 'Stránka',
+            'query_builder' => static function (EntityRepository $er) use ($pageId) {
                 return $er->createQueryBuilder('p')
                     ->where('p.id = :pageId')
                     ->setParameter('pageId', $pageId);
             },
-            'attr' => [
-                'readonly' => true,
-            ],
             'required' => true,
         ]);
         $constrains = $create ? [new NotBlank()] : [];
         $builder->add('file', FileType::class, [
+            'constraints' => $constrains,
             'label' => 'Obrázok',
             'required' => true,
-            'constraints' => $constrains,
         ]);
     }
 
+    #[Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired('pageId');

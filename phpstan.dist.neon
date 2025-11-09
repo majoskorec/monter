@@ -1,0 +1,11 @@
+parameters:
+    treatPhpDocTypesAsCertain: false
+    level: max
+    symfony:
+        containerXmlPath: var/cache/dev/App_KernelDevDebugContainer.xml
+    paths:
+        - bin/
+        - config/
+        - public/
+        - src/
+        - tests/

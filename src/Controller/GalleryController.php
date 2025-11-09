@@ -21,36 +21,46 @@ final class GalleryController extends AbstractController
         ?string $gallery = null,
     ): Response {
         $galleryEntity = $this->getGalleryEntity($pageEntity, $gallery);
-        /** @var string|null $nextGallery */
-        $nextGallery = null;
-        /** @var string|null $prevGallery */
-        $prevGallery = null;
-        $find = false;
+        $params = [
+            'gallery' => $galleryEntity,
+            'nextGallery' => null,
+            'prevGallery' => null,
+        ];
+        $params = $this->addPrevAndNextGalleryToParams($params, $galleryEntity);
+
+        return $this->render('gallery/index.html.twig', $params);
+    }
+
+    /**
+     * @param array<string, mixed> $params
+     * @return array<string, mixed>
+     */
+    private function addPrevAndNextGalleryToParams(array $params, Gallery $galleryEntity): array
+    {
+        $findCurrent = false;
         foreach ($galleryEntity->getPage()->getGallery() as $item) {
-            if ($find === true && $nextGallery === null) {
-                $nextGallery = $item->getUrlKey();
-                break;
+            if ($findCurrent === true) {
+                $params['nextGallery'] = $item->getUrlKey();
+
+                return $params;
             }
             if ($item->getId() === $galleryEntity->getId()) {
-                $find = true;
+                $findCurrent = true;
+
+                continue;
             }
-            if (!$find) {
-                $prevGallery = $item->getUrlKey();
-            }
+
+            $params['prevGallery'] = $item->getUrlKey();
         }
 
-        return $this->render('gallery/index.html.twig', [
-            'gallery' => $galleryEntity,
-            'nextGallery' => $nextGallery,
-            'prevGallery' => $prevGallery,
-        ]);
+        return $params;
     }
 
     private function getGalleryEntity(Page $pageEntity, ?string $gallery): Gallery
     {
         $collection = $pageEntity->getGallery();
         if ($gallery !== null) {
-            $collection = $collection->filter(fn (Gallery $entity) => $entity->getUrlKey() === $gallery);
+            $collection = $collection->filter(static fn (Gallery $entity) => $entity->getUrlKey() === $gallery);
         }
 
         $entity = $collection->first();

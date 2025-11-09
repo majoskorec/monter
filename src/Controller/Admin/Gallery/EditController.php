@@ -21,16 +21,16 @@ final class EditController extends AbstractController
         EntityManagerInterface $entityManager,
         Request $request,
         FormFactoryInterface $formFactory,
-        Gallery $gallery
+        Gallery $gallery,
     ): Response {
         $form = $formFactory->create(GalleryType::class, $gallery, [
-            'pageId' => $gallery->getPage()->getId(),
-            'method' => 'PUT',
             'create' => false,
+            'method' => 'PUT',
+            'pageId' => $gallery->getPage()->getId(),
         ]);
         $form->add('submit', SubmitType::class, [
-            'label' => 'Uprav',
             'attr' => ['class' => 'btn btn-primary col-sm-offset-4'],
+            'label' => 'Uprav',
         ]);
         $form->handleRequest($request);
 

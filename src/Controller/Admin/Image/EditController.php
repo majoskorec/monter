@@ -29,8 +29,8 @@ final class EditController extends AbstractController
     ): Response {
         $form = $formFactory->create(ImageType::class, $image, ['method' => 'PUT', 'create' => false]);
         $form->add('submit', SubmitType::class, [
-            'label' => 'Uprav',
             'attr' => ['class' => 'btn btn-primary col-sm-offset-4'],
+            'label' => 'Uprav',
         ]);
 
         $form->handleRequest($request);

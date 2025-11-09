@@ -21,14 +21,10 @@ final class GalleryRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param string $page
-     * @param string $gallery
-     * @return Gallery|null
      * @throws UnexpectedResultException
      */
     public function findByKeys(string $page, string $gallery): ?Gallery
     {
-        /** @var Gallery|null $data */
         $data = $this->createQueryBuilder('g')
             ->join('g.page', 'p')
             ->andWhere('g.urlKey = :gallery')
@@ -37,6 +33,7 @@ final class GalleryRepository extends ServiceEntityRepository
             ->setParameter('page', $page)
             ->getQuery()
             ->getSingleResult();
+        assert($data instanceof Gallery || $data === null);
 
         return $data;
     }

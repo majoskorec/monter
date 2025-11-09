@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Form\Type;
 
 use App\Entity\Image;
+use Override;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -20,28 +21,30 @@ final class ImageType extends AbstractType
     /**
      * @inheritDoc
      */
+    #[Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        /** @var bool $create */
         $create = $options['create'];
+        assert(is_bool($create));
         $builder->add('title', TextType::class, [
             'label' => 'Názov',
             'required' => true,
         ]);
         $constrains = $create ? [new NotBlank()] : [];
         $builder->add('file', FileType::class, [
+            'constraints' => $constrains,
             'label' => 'Obrázok',
             'required' => true,
-            'constraints' => $constrains,
         ]);
     }
 
+    #[Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired('create');
         $resolver->setAllowedTypes('create', ['bool']);
         $resolver->setDefaults([
-            'data_class' => Image::class
+            'data_class' => Image::class,
         ]);
     }
 }

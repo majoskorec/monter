@@ -7,14 +7,17 @@ namespace App\Entity;
 use App\Model\PageImage;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Override;
+use Stringable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
-#[ORM\Table(name: "page")]
+#[ORM\Table(name: 'page')]
 #[UniqueEntity('urlKey')]
-class Page
+class Page implements Stringable
 {
     public const string IMG_TITLE = 'title';
     public const string IMG_BUTTON = 'button';
@@ -27,69 +30,69 @@ class Page
     public const string HOME_URL_KEY = 'home'; // used in template
 
     #[ORM\Id]
-    #[ORM\Column(name: "id", type: "integer")]
-    #[ORM\GeneratedValue(strategy: "AUTO")]
+    #[ORM\Column(name: 'id', type: Types::INTEGER)]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     private int $id;
 
-    #[ORM\Column(name: "url_key", type: "string", length: 50, unique: true, nullable: false)]
+    #[ORM\Column(name: 'url_key', type: Types::STRING, length: 50, unique: true, nullable: false)]
     #[Assert\NotBlank]
-    #[Assert\Regex(pattern: "/^[a-z0-9-_]+$/", message: "validation.url")]
+    #[Assert\Regex(pattern: '/^[a-z0-9-_]+$/', message: 'validation.url')]
     private string $urlKey;
 
-    #[ORM\Column(name: "title", type: "string", length: 50, nullable: false)]
+    #[ORM\Column(name: 'title', type: Types::STRING, length: 50, nullable: false)]
     #[Assert\NotBlank]
     private string $title;
 
-    #[ORM\ManyToOne(targetEntity: Page::class, inversedBy: "childPages")]
-    #[ORM\JoinColumn(name: "parent_page_id", referencedColumnName: "id", nullable: true)]
-    private ?Page $parentPage = null;
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'childPages')]
+    #[ORM\JoinColumn(name: 'parent_page_id', referencedColumnName: 'id', nullable: true)]
+    private ?self $parentPage = null;
 
     /**
      * @var Collection<array-key, Page>
      */
-    #[ORM\OneToMany(targetEntity: Page::class, mappedBy: "parentPage", orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parentPage', orphanRemoval: true)]
     private Collection $childPages;
 
-    #[ORM\Column(name: "`row`", type: "integer", length: 1, nullable: true)]
+    #[ORM\Column(name: '`row`', type: Types::INTEGER, length: 1, nullable: true)]
     #[Assert\NotBlank]
     #[Assert\Range(min: 1, max: 9)]
     private ?int $row = null;
 
     #[ORM\OneToOne(targetEntity: Image::class)]
-    #[ORM\JoinColumn(name: "title_img_id", referencedColumnName: "id", nullable: true, onDelete: "SET NULL")]
+    #[ORM\JoinColumn(name: 'title_img_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
     private ?Image $titleImg = null;
 
     #[ORM\OneToOne(targetEntity: Image::class)]
-    #[ORM\JoinColumn(name: "description_img_id", referencedColumnName: "id", nullable: true, onDelete: "SET NULL")]
+    #[ORM\JoinColumn(name: 'description_img_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
     private ?Image $descriptionImg = null;
 
     #[ORM\OneToOne(targetEntity: Image::class)]
-    #[ORM\JoinColumn(name: "button_img_id", referencedColumnName: "id", nullable: true, onDelete: "SET NULL")]
+    #[ORM\JoinColumn(name: 'button_img_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
     private ?Image $buttonImg = null;
 
     #[ORM\OneToOne(targetEntity: Image::class)]
-    #[ORM\JoinColumn(name: "button_hover_img_id", referencedColumnName: "id", nullable: true, onDelete: "SET NULL")]
+    #[ORM\JoinColumn(name: 'button_hover_img_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
     private ?Image $buttonImgHover = null;
 
     #[ORM\OneToOne(targetEntity: Image::class)]
-    #[ORM\JoinColumn(name: "back_img_id", referencedColumnName: "id", nullable: true, onDelete: "SET NULL")]
+    #[ORM\JoinColumn(name: 'back_img_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
     private ?Image $backImg = null;
 
     #[ORM\OneToOne(targetEntity: Image::class)]
-    #[ORM\JoinColumn(name: "back_hover_img_id", referencedColumnName: "id", nullable: true, onDelete: "SET NULL")]
+    #[ORM\JoinColumn(name: 'back_hover_img_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
     private ?Image $backImgHover = null;
 
     #[ORM\OneToOne(targetEntity: Image::class)]
-    #[ORM\JoinColumn(name: "content_img_id", referencedColumnName: "id", nullable: true, onDelete: "SET NULL")]
+    #[ORM\JoinColumn(name: 'content_img_id', referencedColumnName: 'id', nullable: true, onDelete: 'SET NULL')]
     private ?Image $content = null;
 
     /**
      * @var Collection<array-key, Gallery>
      */
-    #[ORM\OneToMany(targetEntity: Gallery::class, mappedBy: "page", orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Gallery::class, mappedBy: 'page', orphanRemoval: true)]
     private Collection $gallery;
 
-    #[ORM\Column(name: "external_link", type: "string", nullable: true)]
+    #[ORM\Column(name: 'external_link', type: 'string', nullable: true)]
     #[Assert\Url]
     private ?string $externalLink;
 
@@ -97,11 +100,6 @@ class Page
     {
         $this->childPages = new ArrayCollection();
         $this->gallery = new ArrayCollection();
-    }
-
-    public function __toString(): string
-    {
-        return $this->title;
     }
 
     /**
@@ -117,12 +115,9 @@ class Page
      */
     public function getChildPagesForRow(int $row): Collection
     {
-        /** @var Collection<array-key, Page> $result */
-        $result = $this->childPages->filter(function (Page $page) use ($row) {
+        return $this->childPages->filter(static function (self $page) use ($row) {
             return $page->getRow() === $row;
         });
-
-        return $result;
     }
 
     /**
@@ -177,12 +172,12 @@ class Page
         $this->urlKey = $urlKey;
     }
 
-    public function getParentPage(): ?Page
+    public function getParentPage(): ?self
     {
         return $this->parentPage;
     }
 
-    public function setParentPage(?Page $parentPage): void
+    public function setParentPage(?self $parentPage): void
     {
         $this->parentPage = $parentPage;
     }
@@ -267,36 +262,16 @@ class Page
 
     public function setImage(Image $image, string $type): void
     {
-        switch ($type) {
-            case self::IMG_BACK:
-                $this->backImg = $image;
-
-                break;
-            case self::IMG_BACK_HOVER:
-                $this->backImgHover = $image;
-
-                break;
-            case self::IMG_BUTTON:
-                $this->buttonImg = $image;
-
-                break;
-            case self::IMG_BUTTON_HOVER:
-                $this->buttonImgHover = $image;
-
-                break;
-            case self::IMG_CONTENT:
-                $this->content = $image;
-
-                break;
-            case self::IMG_DESCRIPTION:
-                $this->descriptionImg = $image;
-
-                break;
-            case self::IMG_TITLE:
-                $this->titleImg = $image;
-
-                break;
-        }
+        match ($type) {
+            self::IMG_BACK => $this->backImg = $image,
+            self::IMG_BACK_HOVER => $this->backImgHover = $image,
+            self::IMG_BUTTON => $this->buttonImg = $image,
+            self::IMG_BUTTON_HOVER => $this->buttonImgHover = $image,
+            self::IMG_CONTENT => $this->content = $image,
+            self::IMG_DESCRIPTION => $this->descriptionImg = $image,
+            self::IMG_TITLE => $this->titleImg = $image,
+            default => null,
+        };
     }
 
     public function getExternalLink(): ?string
@@ -307,5 +282,11 @@ class Page
     public function setExternalLink(?string $externalLink): void
     {
         $this->externalLink = $externalLink;
+    }
+
+    #[Override]
+    public function __toString(): string
+    {
+        return $this->title;
     }
 }

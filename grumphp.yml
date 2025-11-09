@@ -1,22 +1,34 @@
 grumphp:
+  ascii:
+    failed: vendor/pixelfederation/coding-standards/assets/grumphp/pixel-bad.txt
+    succeeded: vendor/pixelfederation/coding-standards/assets/grumphp/pixel-good.txt
+  parallel:
+    enabled: true
+    max_workers: 16
   stop_on_failure: false
-  process_timeout: 600
+  process_timeout: 1800
+  fixer:
+    enabled: false
   tasks:
     composer: ~
     composer_normalize: ~
+    doctrine_schema_validate: ~
     jsonlint: ~
     phpcs:
-      standard: 'phpcs.xml'
+      standard: 'phpcs.xml.dist'
       tab_width: 4
       whitelist_patterns: [ ]
       encoding: utf-8
-      ignore_patterns: [ ]
+      ignore_patterns: [
+        config/bundles.php,
+        importmap.php,
+      ]
       sniffs: [ ]
       triggered_by: [ php ]
     phpcsfixer2:
       cache_file: '.php-cs-fixer.cache'
       allow_risky: true
-      config: '.php-cs-fixer.php'
+      config: '.php-cs-fixer.dist.php'
       using_cache: true
       config_contains_finder: true
       verbose: false
@@ -26,11 +38,8 @@ grumphp:
     phpmd:
       ruleset: ['phpmd.xml']
     phpparser:
-      ignore_patterns:
-        - tests/
-        - config/bundles.php
-        - importmap.php
-      kind: php8
+      ignore_patterns: []
+      php_version: '8.4'
       visitors:
         declare_strict_types: ~
         no_exit_statements: ~
@@ -38,21 +47,48 @@ grumphp:
         forbidden_class_method_calls:
           blacklist:
             - '$dumper->dump'
-            - 'var_dump'
         forbidden_function_calls:
           blacklist:
             - 'var_dump'
             - 'dd'
+            - 'dump'
+        forbidden_static_method_calls:
+          blacklist:
+            - 'Dumper::dump'
     phpstan:
       autoload_file: ~
-      configuration: 'phpstan.neon'
+      configuration: 'phpstan.dist.neon'
       level: max
       memory_limit: "-1"
-      ignore_patterns: [ ]
+      ignore_patterns: [
+        'tests/',
+      ]
       triggered_by: [ 'php' ]
+    psalm:
+      config: 'psalm.dist.xml'
+      ignore_patterns:
+        - var/
+        - vendor/
+        - tests/
+        - public/index.php
+      no_cache: true
+      report: ~
+      threads: 1
+      triggered_by: [ 'php' ]
+      show_info: true
     phpversion: ~
-#      psalm: ~ # not supperted php 8.3
-    shell: ~
     twigcs:
       path: 'templates/'
-    yamllint: ~
+    xmllint:
+      ignore_patterns: [ ]
+      load_from_net: true
+      x_include: true
+      dtd_validation: true
+      scheme_validation: false # doctrine orm ma error
+      triggered_by: [ 'xml' ]
+    yamllint:
+      parse_constant: true
+      parse_custom_tags: true
+
+  extensions:
+    - JonMldr\GrumPhpDoctrineTask\ExtensionLoader

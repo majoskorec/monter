@@ -6,6 +6,7 @@ namespace App\Form\Type;
 
 use App\Entity\Page;
 use Doctrine\ORM\EntityRepository;
+use Override;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -22,10 +23,11 @@ final class PageType extends AbstractType
     /**
      * @inheritDoc
      */
+    #[Override]
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        /** @var int|null $parentPageId */
         $parentPageId = $options['parentPageId'];
+        assert(is_int($parentPageId) || $parentPageId === null);
         $builder->add('urlKey', TextType::class, [
             'label' => 'Url klúč',
         ]);
@@ -37,25 +39,26 @@ final class PageType extends AbstractType
         ]);
         if ($parentPageId !== null) {
             $builder->add('parentPage', EntityType::class, [
-                'label' => 'Nadriadená stránka',
+                'attr' => [
+                    'readonly' => true,
+                ],
                 'class' => Page::class,
-                'query_builder' => function (EntityRepository $er) use ($parentPageId) {
+                'label' => 'Nadriadená stránka',
+                'query_builder' => static function (EntityRepository $er) use ($parentPageId) {
                     return $er->createQueryBuilder('p')
                         ->where('p.id = :parentPageId')
                         ->setParameter('parentPageId', $parentPageId);
                 },
                 'required' => true,
-                'attr' => [
-                    'readonly' => true,
-                ],
             ]);
         }
         $builder->add('externalLink', UrlType::class, [
-            'required' => false,
             'default_protocol' => null,
+            'required' => false,
         ]);
     }
 
+    #[Override]
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefined('parentPageId');

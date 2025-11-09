@@ -5,45 +5,43 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\GalleryRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
+use Override;
+use Stringable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: GalleryRepository::class)]
-#[ORM\Table(name: "gallery")]
-#[UniqueEntity(fields: ["urlKey", "page"])]
-class Gallery
+#[ORM\Table(name: 'gallery')]
+#[UniqueEntity(fields: ['urlKey', 'page'])]
+class Gallery implements Stringable
 {
     #[ORM\Id]
-    #[ORM\Column(name: "id", type: "integer")]
-    #[ORM\GeneratedValue(strategy: "AUTO")]
+    #[ORM\Column(name: 'id', type: Types::INTEGER)]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     private ?int $id = null;
 
-    #[ORM\Column(name: "url_key", type: "string", length: 50, nullable: false)]
+    #[ORM\Column(name: 'url_key', type: Types::STRING, length: 50, nullable: false)]
     #[Assert\NotBlank]
-    #[Assert\Regex(pattern: "/^[a-z0-9-_]+$/", message: "validation.url")]
+    #[Assert\Regex(pattern: '/^[a-z0-9-_]+$/', message: 'validation.url')]
     private string $urlKey;
 
-    #[ORM\Column(name: "title", type: "string", length: 50, nullable: false)]
+    #[ORM\Column(name: 'title', type: Types::STRING, length: 50, nullable: false)]
     #[Assert\NotBlank]
     private string $title;
 
-    #[ORM\ManyToOne(targetEntity: Page::class, inversedBy: "gallery")]
-    #[ORM\JoinColumn(name: "page_id", referencedColumnName: "id", nullable: false)]
+    #[ORM\ManyToOne(targetEntity: Page::class, inversedBy: 'gallery')]
+    #[ORM\JoinColumn(name: 'page_id', referencedColumnName: 'id', nullable: false)]
     private Page $page;
 
-    #[ORM\OneToOne(targetEntity: Image::class, cascade: ["persist"])]
-    #[ORM\JoinColumn(name: "image_id", referencedColumnName: "id", nullable: false)]
+    #[ORM\OneToOne(targetEntity: Image::class, cascade: ['persist'])]
+    #[ORM\JoinColumn(name: 'image_id', referencedColumnName: 'id', nullable: false)]
     private ?Image $image = null; // @phpstan-ignore doctrine.associationType
 
-    #[Assert\File(maxSize: "1024k", mimeTypes: ["image/png"], mimeTypesMessage: "validation.image")]
+    #[Assert\File(maxSize: '1024k', mimeTypes: ['image/png'], mimeTypesMessage: 'validation.image')]
     private ?UploadedFile $file = null;
-
-    public function __toString(): string
-    {
-        return $this->title;
-    }
 
     public function getId(): ?int
     {
@@ -104,5 +102,11 @@ class Gallery
         $this->image ??= new Image();
         $this->image->setTitle($this->title);
         $this->image->setImage(base64_encode($this->file->getContent()));
+    }
+
+    #[Override]
+    public function __toString(): string
+    {
+        return $this->title;
     }
 }
