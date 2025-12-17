@@ -14,6 +14,7 @@
             <directory name="vendor"/>
             <directory name="tests"/>
             <file name="public/index.php"/>
+            <file name="config/reference.php"/>
         </ignoreFiles>
         <directory name="."/>
     </projectFiles>
@@ -27,6 +28,7 @@
         <PropertyNotSetInConstructor errorLevel="suppress"/>
         <UnusedParam errorLevel="suppress"/>
         <UnusedProperty errorLevel="suppress"/>
+        <InvalidAttribute errorLevel="suppress"/>
     </issueHandlers>
 
     <plugins>
