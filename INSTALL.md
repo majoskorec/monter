@@ -1,8 +1,8 @@
-Websupport installation
+WebSupport installation
 
 ```bash
-git pull <branche>
+git checkout <branche>
+git pull
 composer install
-
-
+bin/console assets:install
 ```
