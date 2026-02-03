@@ -16,6 +16,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
+ * @psalm-suppress TooManyTemplateParams
  * @template-extends AbstractType<Page>
  */
 final class PageType extends AbstractType

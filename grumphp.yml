@@ -11,6 +11,9 @@ grumphp:
     enabled: false
   tasks:
     composer: ~
+    composer_install_check:
+      metadata:
+        priority: 960
     composer_normalize: ~
     doctrine_schema_validate: ~
     jsonlint: ~
@@ -35,11 +38,11 @@ grumphp:
       diff: true
       triggered_by: [ 'php' ]
     phplint: ~
-    phpmd:
-      ruleset: ['phpmd.xml']
+#    phpmd:
+#      ruleset: ['phpmd.xml']
     phpparser:
       ignore_patterns: []
-      php_version: '8.4'
+      php_version: '8.5'
       visitors:
         declare_strict_types: ~
         no_exit_statements: ~
@@ -79,16 +82,15 @@ grumphp:
     phpversion: ~
     twigcs:
       path: 'templates/'
-    xmllint:
+    xmllint_extended:
       ignore_patterns: [ ]
       load_from_net: true
       x_include: true
       dtd_validation: true
-      scheme_validation: false # doctrine orm ma error
+      scheme_validation: true
       triggered_by: [ 'xml' ]
     yamllint:
       parse_constant: true
       parse_custom_tags: true
-
   extensions:
-    - JonMldr\GrumPhpDoctrineTask\ExtensionLoader
+    - PixelFederation\CodingStandards\GrumPHP\ExtensionLoader
