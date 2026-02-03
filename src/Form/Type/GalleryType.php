@@ -17,6 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
+ * @psalm-suppress TooManyTemplateParams
  * @template-extends AbstractType<Gallery>
  */
 final class GalleryType extends AbstractType

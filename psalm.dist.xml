@@ -33,8 +33,8 @@
 
     <plugins>
         <pluginClass class="Weirdan\DoctrinePsalmPlugin\Plugin"/>
-        <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin">
-            <containerXml>var/cache/dev/App_KernelDevDebugContainer.xml</containerXml>
-        </pluginClass>
+<!--        <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin">-->
+<!--            <containerXml>var/cache/dev/App_KernelDevDebugContainer.xml</containerXml>-->
+<!--        </pluginClass>-->
     </plugins>
 </psalm>

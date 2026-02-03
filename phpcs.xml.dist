@@ -9,8 +9,6 @@
     <arg name="extensions" value="php"/>
     <arg value="ps"/>
 
-    <config name="testVersion" value="8.4" />
-
     <rule ref="PSR12"/>
 
     <file>bin/</file>
@@ -25,7 +23,7 @@
     <exclude-pattern>config/bundles.php</exclude-pattern>
     <exclude-pattern>importmap.php</exclude-pattern>
 
-    <rule ref="vendor/pixelfederation/coding-standards/phpcs.ruleset.84.non-ddd.xml"/>
+    <rule ref="vendor/pixelfederation/coding-standards/phpcs.ruleset.85.non-ddd.xml"/>
 
     <rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">
         <properties>
